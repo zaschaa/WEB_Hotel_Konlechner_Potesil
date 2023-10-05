@@ -1,0 +1,97 @@
+h1 {
+    font-size: 48px;
+    font-family: "Times New Roman", Times, serif;
+    color: rgb(170, 4, 4);    
+}
+
+h2 {
+    font-size: 30px;
+    color: rgb(19, 19, 122);    
+}
+
+label, input {
+    font-style: italic;    
+}
+
+form {    
+    background-color: lightgrey;
+    width: 300px;    
+    padding: 50px;    
+}
+
+
+
+
+/* affecting all children even at sub levels */
+/*
+div p {
+    color: turquoise;
+}
+*/
+/* affecting direct chlidren only*/
+/*
+div>p {
+    color: orange;
+}
+*/
+/* id-Selector, nicht gut wiederverwendbar */
+/*
+#email {
+    color: ghostwhite;
+}
+*/
+
+/* class Selector */
+.homeTitle {
+    text-align: center;
+    background-color: beige;
+    width: 500px;
+    border: 10px solid rgb(14, 54, 14);
+    padding: 50px;    
+}
+
+.footerLine {
+    width: 60pc;
+    height: 1px;
+    background-color: black;    
+    margin-top: 100px;
+}
+
+.formular {
+    color: brown;
+    border: 1px solid lightseagreen;
+}
+
+.email {
+    margin-bottom: 14px;
+}
+
+/*selector with attribute*/
+
+label[for="title"] {
+    color: grey;
+}
+
+a {
+    color: blue;
+    text-decoration-line: underline;
+}
+
+/* pseudo class selector*/
+
+a:visited {
+    color: purple;
+}
+
+a:hover {
+    border: 1px solid gray;
+}
+
+.boxmodel {
+    background-color: lightgray;
+    width: 300px;
+    height: 300px;
+    border: 50px solid green;
+    padding: 50px;
+    margin: 50px 30px 20px 10px;
+}
