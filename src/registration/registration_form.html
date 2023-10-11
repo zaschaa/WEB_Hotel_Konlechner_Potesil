@@ -10,38 +10,48 @@
     <h1>Benutzer-Registrierung</h1>
 
     <form method="POST">
-        <div>
-            <label for="anrede">Anrede</label>
-            <select name="anrede" id="anrede">
-                <option value="Frau">Frau</option>
-                <option value="Herr">Herr</option>
-                <option value="Keine" selected>Keine</option>                
-            </select>
-        </div>
-        <div>
-            <label for="vorname">Vorname</label>
-            <input type="text" name="vorname" id="vorname">
-        </div>
-        <div>
-            <label for="nachname">Nachname</label>
-            <input type="text" name="nachname" id="nachname">
-        </div>                 
-        <div>
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" required> 
-        </div>
-        <div>
-            <label for="username">Username</label>
-            <input type="text" name="username" id="username" required>
-        </div>      
-        <div>
-            <label for="password">Passwort</label>
-            <input type="password" name="password" id="password" required>
-        </div>
-        <div>
-            <label for="password2">Passwort bestätigen</label>
-            <input type="password" name="password2" id="password2" size=30 placeholder="Bitte hier das Passwort wiederholen!" required>
-        </div>           
+        <table>        
+            <tr>
+                <td><label for="anrede">Anrede</label></td>
+                <td>
+                    <select name="anrede" id="anrede">
+                        <option value="Frau">Frau</option>
+                        <option value="Herr">Herr</option>
+                        <option value="Keine" selected>Keine</option>                
+                    </select>
+                </td>            
+            </tr>
+                
+            <tr>            
+                <td><label for="vorname">Vorname</label></td>
+                <td><input type="text" name="vorname" id="vorname"></td>            
+            </tr>
+            
+            <tr>
+                <td><label for="nachname">Nachname</label></td>
+                <td><input type="text" name="nachname" id="nachname"></td>
+            </tr>
+                                
+            <tr>
+                <td><label for="email">Email</label></td>
+                <td><input type="email" name="email" id="email" required></td>
+            </tr>
+            
+            <tr>
+                <td><label for="username">Username</label></td>
+                <td><input type="text" name="username" id="username" required></td>
+            </tr>
+                
+            <tr>
+                <td><label for="password">Passwort</label></td>
+                <td><input type="password" name="password" id="password" required></td>
+            </tr>
+                
+            <tr>
+                <td><label for="password2">Passwort bestätigen</label></td>
+                <td><input type="password" name="password2" id="password2" placeholder="Bitte hier das Passwort wiederholen!" required></td>
+            </tr>
+        </table>          
         <button type="submit">Registrieren</button>
     </form>
     <br>

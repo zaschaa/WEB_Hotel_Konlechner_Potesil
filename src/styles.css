@@ -9,18 +9,17 @@ h2 {
     color: rgb(19, 19, 122);    
 }
 
-label, input {
-    font-style: italic;    
+input {
+    font-style: italic;
+    width: 250px;        
 }
 
 form {    
     background-color: lightgrey;
-    width: 300px;    
-    padding: 50px;    
+    width: 500px;    
+    padding: 50px;
+    box-sizing: border-box;    
 }
-
-
-
 
 /* affecting all children even at sub levels */
 /*
