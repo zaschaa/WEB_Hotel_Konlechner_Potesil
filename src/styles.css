@@ -9,10 +9,12 @@ h2 {
     color: rgb(19, 19, 122);    
 }
 
+/*
 input {
     font-style: italic;
     width: 250px;        
 }
+
 
 form {    
     background-color: lightgrey;
@@ -20,6 +22,7 @@ form {
     padding: 50px;
     box-sizing: border-box;    
 }
+*/
 
 /* affecting all children even at sub levels */
 /*
@@ -41,12 +44,22 @@ div>p {
 */
 
 /* class Selector */
+
+.bgColor {
+    background-color: rgb(113, 89, 138);
+}
+
+.navBarColor {
+    background-color: rgb(43, 14, 73);
+}
+
 .homeTitle {
-    text-align: center;
+    text-align: center;    
     background-color: beige;
-    width: 500px;
+    width: 440px;
     border: 10px solid rgb(14, 54, 14);
-    padding: 50px;    
+    padding: 50px; 
+    box-sizing: border-box;   
 }
 
 .footerLine {
@@ -72,18 +85,31 @@ label[for="title"] {
 }
 
 a {
-    color: blue;
-    text-decoration-line: underline;
+    color: pink;    
 }
 
 /* pseudo class selector*/
 
 a:visited {
-    color: purple;
+    color: plum;
 }
 
 a:hover {
-    border: 1px solid gray;
+    color: plum;
+    border: 1px solid gray;    
+    text-decoration-line: underline;
+}
+
+.navLink {
+    color: pink; 
+}
+
+navLink:visited {
+    color: plum;
+}
+navLink:hover {
+    color: plum;      
+    text-decoration-line: underline;
 }
 
 .boxmodel {
@@ -93,4 +119,18 @@ a:hover {
     border: 50px solid green;
     padding: 50px;
     margin: 50px 30px 20px 10px;
+}
+
+#homeLink {
+    text-align: center;
+    text-decoration-line: none;
+    font-family: "Times New Roman", Times, serif;
+    color: rgb(170, 4, 4); 
+    background-color: beige;    
+    border: solid rgb(14, 54, 14);  
+    box-sizing: border-box;    
+}
+
+#loginLink {
+    color:teal
 }

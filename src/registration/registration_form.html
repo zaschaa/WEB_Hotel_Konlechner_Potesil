@@ -3,66 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+       
     <title>Registrierung</title>
     <link rel="stylesheet" href="../styles.css"/>
 </head>
-<body>
-    <h1>Benutzer-Registrierung</h1>
+<body class="bgColor bg-gradient">
+    <header>
+        <nav class="navbar navbar-expand-lg navBarColor bg-gradient">
+            <div class="container justify-content-left">                    
+                <a class="navbar p-1" id="homeLink" href="../index.html">The Great Old Hotel</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">     
+                  <li class="nav-item">
+                    <a class="nav-link" href="../registration/registration_form.html">Benutzer-Registrierung</a>
+                  </li>                 
+                </ul>
+                <div class="nav-item d-flex justify-content-end bg-info-subtle bg-opacity-25 rounded"><a class="btn btn-outline-info" id="loginLink" href="../login/login_form.html">Login</a></div>                                    
+              </div>
+            </div>
+        </nav>
+    </header>
 
-    <form method="POST">
-        <table>        
-            <tr>
-                <td><label for="anrede">Anrede</label></td>
-                <td>
-                    <select name="anrede" id="anrede">
-                        <option value="Frau">Frau</option>
-                        <option value="Herr">Herr</option>
-                        <option value="Keine" selected>Keine</option>                
-                    </select>
-                </td>            
-            </tr>
-                
-            <tr>            
-                <td><label for="vorname">Vorname</label></td>
-                <td><input type="text" name="vorname" id="vorname"></td>            
-            </tr>
-            
-            <tr>
-                <td><label for="nachname">Nachname</label></td>
-                <td><input type="text" name="nachname" id="nachname"></td>
-            </tr>
-                                
-            <tr>
-                <td><label for="email">Email</label></td>
-                <td><input type="email" name="email" id="email" required></td>
-            </tr>
-            
-            <tr>
-                <td><label for="username">Username</label></td>
-                <td><input type="text" name="username" id="username" required></td>
-            </tr>
-                
-            <tr>
-                <td><label for="password">Passwort</label></td>
-                <td><input type="password" name="password" id="password" required></td>
-            </tr>
-                
-            <tr>
-                <td><label for="password2">Passwort bestätigen</label></td>
-                <td><input type="password" name="password2" id="password2" placeholder="Bitte hier das Passwort wiederholen!" required></td>
-            </tr>
-        </table>          
-        <button type="submit">Registrieren</button>
-    </form>
-    <br>
-    <br>
+    <div class="container justify-content-left"> 
 
-    <footer>
-        <div class="footerLine"></div>
-        <a href="../index.html">Home</a> <text> | </text>
-        <a href="../impressum/impressum.html">Impressum</a> <text> | </text>
-        <a href="../help/help.html">Hilfe & FAQ</a> <text> | </text>
-        <a href="../datenschutzinfo/datenschutzinfo.html">Information über Ihre Rechte gemäß DSGVO</a>   
-    </footer>
+        <h1>Benutzer-Registrierung</h1>
+
+        <form class="col-3" method="POST">
+            <div class="mb-3">
+                <label for="anrede" class="form-label">Anrede</label>
+                <select id="anrede" class="form-select">
+                    <option selected value="Keine">Keine</option>   
+                    <option value="Frau">Frau</option>
+                    <option value="Herr">Herr</option>                    
+                </select>                                             
+            </div>
+            <div class="mb-3">
+                <label for="vorname" class="form-label">Vorname</label>
+                <input type="text" class="form-control" name="vorname" id="vorname">
+            </div>
+            <div class="mb-3">
+                <label for="nachname" class="form-label">Nachname</label>
+                <input type="text" class="form-control" name="nachname" id="nachname">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" required>
+                <div id="emailHelp" class="form-text">Wir werden Ihre E-Mailadresse niemals an Dritte weitergeben!</div>
+            </div>
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" name="username" id="username" required>
+            </div>         
+            <div class="mb-3">
+              <label for="password" class="form-label">Passwort</label>
+              <input type="password" class="form-control" name="password" id="password" required>
+            </div>
+            <div class="mb-3">
+                <label for="password2" class="form-label">Passwort</label>
+                <input type="password" class="form-control" name="password2" id="password2" aria-describedby="password2Help" required>
+                <div id="password2Help" class="form-text">Bitte hier das Passwort wiederholen!</div>
+            </div>           
+            <button class="btn btn-success" type="submit">Registrieren</button>
+        </form>         
+    </div>
+
+    <div class="container">
+        <footer class="py-3 my-4">
+            <ul class="nav justify-content-left border-bottom pb-3 mb-3">
+                <li class="nav-item"><a href="../impressum/impressum.html" class="nav-link px-2 text-body-secondary">Impressum</a></li>
+                <li class="nav-item"><a href="../help/help.html" class="nav-link px-2 text-body-secondary">Hilfe & FAQ</a></li>
+                <li class="nav-item"><a href="../datenschutzinfo/datenschutzinfo.html" class="nav-link px-2 text-body-secondary">Information über Ihre Rechte gemäß DSGVO</a></li>                    
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Über uns</a></li>
+            </ul>
+            <p class="text-left text-body-secondary">&copy; 2023 WEB1@FHTW Hotel Betriebsgesellschaft mbH</p>
+        </footer>
+    </div>      
 </body>
 </html>
