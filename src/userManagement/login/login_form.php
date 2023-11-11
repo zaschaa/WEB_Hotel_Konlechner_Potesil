@@ -52,24 +52,28 @@ include './login_logic.php';
                 </div>
             </form>
 
+            <div class="mb-3">
+                <p>Noch kein Profil angelegt? Hier können Sie sich
+                    <a href="../registration/registration_form.php">registrieren.</a>
+                </p>
+            </div>
+
         <?php
         // FixMe: this is once again only for experimentation reasons
         else:
-            echo "<script> console.log('Currently logged in as: $_SESSION[username] ' )</script>";
-        ?>
-        <form method="POST" class="mt-2">
-            <div class="mt-1">
-                <button class="btn btn-danger" type="submit" name="submit" id="submit" value="logout">Logout</button>
-            </div>
-        </form>
+            echo "<script> console.log('Currently logged in as: $_SESSION[currentUser] ' )</script>";
+            ?>
+            <form method="POST" class="mt-2">
+                <div class="mt-1">
+                    <button class="btn btn-danger" type="submit" name="submit" id="submit" value="logout">
+                        Logout
+                    </button>
+                </div>
+            </form>
 
         <?php
         endif;
         ?>
-
-        <div class="mb-3"><p>Noch keinen Benutzer angelegt? Hier können Sie sich <a
-                        href="../registration/registration_form.php">registrieren.</a>
-            </p></div>
     </div>
 </main>
 
