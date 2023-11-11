@@ -28,7 +28,7 @@ include './login_logic.php';
 <main>
     <div class="container justify-content-left">
 
-        <?php if (!isset($_SESSION["username"])) : ?>
+        <?php if (!isset($_SESSION["currentUser"])) : ?>
             <form method="POST" class="mt-2">
                 <table>
                     <tr>
