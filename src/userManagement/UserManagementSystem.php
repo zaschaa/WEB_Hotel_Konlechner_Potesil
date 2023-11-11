@@ -36,6 +36,15 @@ class UserManagementSystem
         }
         return $isRegisteredUser;
     }
+    public function getUserByUsername($username)
+    {
+        foreach ($_SESSION["registeredUsers"] as $registeredUser) {
+            if ($registeredUser->getUsername() === $username) {
+                return $registeredUser;
+            }
+        }
+        return null;
+    }
 
     // logs all currently registered users with name and password
     public function calloutAllRegisteredUsersOnConsole()

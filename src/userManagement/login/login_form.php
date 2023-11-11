@@ -61,8 +61,32 @@ include './login_logic.php';
         <?php
         // FixMe: this is once again only for experimentation reasons
         else:
-            echo "<script> console.log('Currently logged in as: $_SESSION[currentUser] ' )</script>";
+            $username = $_SESSION["currentUser"]->getUsername();
+            echo "<script> console.log('Currently logged in as: $username ' )</script>";
             ?>
+
+            <div>
+                <h1>
+                    Willkommen
+                    <?php
+                    $currentUser = $_SESSION["currentUser"];
+                    if ($currentUser->getSex() !== "Keine") {
+                        echo $currentUser->getSex()
+                            . " "
+                            . $currentUser->getName()
+                            . " "
+                            . $currentUser->getLastname()
+                            . "!";
+                    } else {
+                        echo $currentUser->getName()
+                            . " "
+                            . $currentUser->getLastname()
+                            . "!";
+                    }
+                    ?>
+                </h1>
+            </div>
+
             <form method="POST" class="mt-2">
                 <div class="mt-1">
                     <button class="btn btn-danger" type="submit" name="submit" id="submit" value="logout">

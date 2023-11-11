@@ -21,8 +21,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!isset($_SESSION["currentUser"])
             && $ums->isRegisteredUserWithCorrectPassword($enteredUsername, $enteredPassword)) {
 
-            $_SESSION["currentUser"] = $enteredUsername;
-            setcookie("FirstCookie", $_SESSION["currentUser"]);
+            $loggedInUsername = $ums->getUserByUsername($enteredUsername);
+            $_SESSION["currentUser"] = $loggedInUsername;
+            setcookie("FirstCookie", $_SESSION["currentUser"]->getUsername());
 
             echo "<script>console.log(' Logged in as $enteredUsername' );</script>";
 
