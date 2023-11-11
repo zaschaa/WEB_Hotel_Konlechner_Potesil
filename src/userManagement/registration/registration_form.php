@@ -1,3 +1,6 @@
+<?php
+include './registration_logic.php';
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,20 +25,20 @@
 
                 <form class="col-3" method="POST">
                     <div class="mb-3">
-                        <label for="anrede" class="form-label">Anrede</label>
-                        <select id="anrede" class="form-select">
+                        <label for="sex" class="form-label">Anrede</label>
+                        <select name="sex" id="sex" class="form-select">
                             <option selected value="Keine">Keine</option>   
                             <option value="Frau">Frau</option>
                             <option value="Herr">Herr</option>                    
                         </select>                                             
                     </div>
                     <div class="mb-3">
-                        <label for="vorname" class="form-label">Vorname</label>
-                        <input type="text" class="form-control" name="vorname" id="vorname">
+                        <label for="name" class="form-label">Vorname</label>
+                        <input type="text" class="form-control" name="name" id="name">
                     </div>
                     <div class="mb-3">
-                        <label for="nachname" class="form-label">Nachname</label>
-                        <input type="text" class="form-control" name="nachname" id="nachname">
+                        <label for="lastname" class="form-label">Nachname</label>
+                        <input type="text" class="form-control" name="lastname" id="lastname">
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
@@ -55,7 +58,7 @@
                         <input type="password" class="form-control" name="password2" id="password2" aria-describedby="password2Help" required>
                         <div id="password2Help" class="form-text">Bitte hier das Passwort wiederholen!</div>
                     </div>           
-                    <button class="btn btn-success" type="submit">Registrieren</button>
+                    <button class="btn btn-success" type="submit" name="submit" id="submit">Registrieren</button>
                 </form>         
             </div>
         </main>

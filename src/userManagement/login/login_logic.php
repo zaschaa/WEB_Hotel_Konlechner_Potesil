@@ -8,7 +8,6 @@ $ums->initializeUserRegistration();
 
 $ums->calloutAllRegisteredUsersOnConsole();
 
-// ToDo: change this to work with  UMS
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -19,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $enteredPassword = htmlspecialchars($_POST["password"]);
 
         if (!isset($_SESSION["username"])
-            && $ums->isRegisteredUser($enteredUsername, $enteredPassword)) {
+            && $ums->isRegisteredUserWithCorrectPassword($enteredUsername, $enteredPassword)) {
 
             $_SESSION["username"] = $enteredUsername;
             setcookie("FirstCookie", $_SESSION["username"]);
@@ -37,6 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<script>console.log(' Logging out... ' );</script>";
         session_destroy();
         session_abort();
+        header("Refresh:0");
         echo "<script>console.log(' Session has been closed ' );</script>";
     }
 }

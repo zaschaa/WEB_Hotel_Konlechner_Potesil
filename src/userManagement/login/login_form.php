@@ -64,7 +64,8 @@ include './login_logic.php';
         </form>
 
         <?php
-        endif; ?>
+        endif;
+        ?>
 
         <div class="mb-3"><p>Noch keinen Benutzer angelegt? Hier können Sie sich <a
                         href="../registration/registration_form.php">registrieren.</a>
