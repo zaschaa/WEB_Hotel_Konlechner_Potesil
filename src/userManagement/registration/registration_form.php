@@ -46,7 +46,7 @@ include './registration_logic.php';
                         <div id="emailHelp" class="form-text">Wir werden Ihre E-Mailadresse niemals an Dritte weitergeben!</div>
                     </div>
                     <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
+                        <label for="username" class="form-label">Benutzername</label>
                         <input type="text" class="form-control" name="username" id="username" required>
                     </div>         
                     <div class="mb-3">

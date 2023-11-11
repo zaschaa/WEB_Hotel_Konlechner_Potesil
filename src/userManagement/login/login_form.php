@@ -33,7 +33,7 @@ include './login_logic.php';
                 <table>
                     <tr>
                         <td>
-                            <label for="username">Username</label>
+                            <label for="username">Benutzername</label>
                         </td>
                         <td>
                             <input type="text" name="username" id="username" required/>
@@ -41,7 +41,7 @@ include './login_logic.php';
                         </td>
                     </tr>
                     <tr>
-                        <td><label for="password">Password</label></td>
+                        <td><label for="password">Passwort</label></td>
                         <td><input type="password" name="password" id="password" required/></td>
                     </tr>
                 </table>
