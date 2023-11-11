@@ -30,7 +30,7 @@
     <body class="bgColor bg-gradient">
         <header>
             <?php
-            header("Location: welcome.php");
+            header("Location: content/welcome.php");
             exit();
             ?>
         </header>

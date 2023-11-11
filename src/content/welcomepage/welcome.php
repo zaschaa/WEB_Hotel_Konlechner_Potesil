@@ -8,13 +8,13 @@
 
     <title>The Great Old Hotel</title>
 
-    <link rel="stylesheet" href="./styles.css"/>
+    <link rel="stylesheet" href="../../styles.css"/>
 </head>
 
 <body class="bgColor bg-gradient">
 <header>
     <?php
-    include 'topNavBar.php';
+    include '../../navigation/navbar/topNavBar.php';
     ?>
 </header>
 
@@ -32,7 +32,7 @@
 
 <footer>
     <?php
-    include 'footerNav.php';
+    include '../../navigation/footer/footerNav.php';
     ?>
 </footer>
 </body>
