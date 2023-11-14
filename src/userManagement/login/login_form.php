@@ -28,74 +28,10 @@ include './login_logic.php';
 <main>
     <div class="container justify-content-left">
 
-        <?php if (!isset($_SESSION["currentUser"])) : ?>
-            <form method="POST" class="mt-2">
-                <table>
-                    <tr>
-                        <td>
-                            <label for="username">Benutzername</label>
-                        </td>
-                        <td>
-                            <input type="text" name="username" id="username" required/>
-                            <!--name attribut legt Name des Parameters beim Absenden des Requests fest-->
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label for="password">Passwort</label></td>
-                        <td><input type="password" name="password" id="password" required/></td>
-                    </tr>
-                </table>
-
-                <div class="mt-1">
-                    <button class="btn btn-danger" type="reset" name="reset">Reset</button>
-                    <button class="btn btn-success" type="submit" name="submit" id="submit" value="login">Login</button>
-                </div>
-            </form>
-
-            <div class="mb-3">
-                <p>Noch kein Profil angelegt? Hier können Sie sich
-                    <a href="../registration/registration_form.php">registrieren.</a>
-                </p>
-            </div>
-
-        <?php
-        // FixMe: this is once again only for experimentation reasons
+        <?php if (!isset($_SESSION["currentUser"])) :
+            include './login_form_no_active_user.php';
         else:
-            $username = $_SESSION["currentUser"]->getUsername();
-            echo "<script> console.log('Currently logged in as: $username ' )</script>";
-            ?>
-
-            <div>
-                <h1>
-                    Willkommen
-                    <?php
-                    $currentUser = $_SESSION["currentUser"];
-                    if ($currentUser->getSex() !== "Keine") {
-                        echo $currentUser->getSex()
-                            . " "
-                            . $currentUser->getName()
-                            . " "
-                            . $currentUser->getLastname()
-                            . "!";
-                    } else {
-                        echo $currentUser->getName()
-                            . " "
-                            . $currentUser->getLastname()
-                            . "!";
-                    }
-                    ?>
-                </h1>
-            </div>
-
-            <form method="POST" class="mt-2">
-                <div class="mt-1">
-                    <button class="btn btn-danger" type="submit" name="submit" id="submit" value="logout">
-                        Logout
-                    </button>
-                </div>
-            </form>
-
-        <?php
+            include './login_form_logged_in.php';
         endif;
         ?>
     </div>

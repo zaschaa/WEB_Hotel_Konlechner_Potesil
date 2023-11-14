@@ -8,7 +8,9 @@ class UserManagementSystem
 
     public function initializeUserRegistration()
     {
-        session_start();
+        if (!isset($_SESSION)) {
+            session_start();
+        }
 
         if (!isset($_SESSION["registeredUsers"])) {
             $initUser = new User();
@@ -23,6 +25,22 @@ class UserManagementSystem
             $_SESSION["registeredUsers"][] = $user;
         } else {
             echo "<script>console.log(' User with Username $user->getUsername() already exists ' );</script>";
+        }
+    }
+
+    public function updateUser(User $updatedUser)
+    {
+        if ($this->isRegisteredUser($updatedUser->getUsername())) {
+            $userToUpdate = $this->getUserByUsername($updatedUser->getUsername());
+
+            $key = array_search($userToUpdate, $_SESSION["registeredUsers"]);
+            if ($key !== false) {
+                unset($_SESSION["registeredUsers"][$key]);
+            }
+
+            $_SESSION["registeredUsers"][] = $updatedUser;
+        } else {
+            echo "<script>console.log(' User with Username $updatedUser->getUsername() does not exist ' );</script>";
         }
     }
 

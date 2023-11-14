@@ -1,8 +1,11 @@
 <nav class="navbar navbar-expand-lg navBarColor bg-gradient">
     <div class="container justify-content-left">
         <div class="navbar d-flex flex-column">
-            <img class="mb-1" src="../../images/fiveGoldenStarsTransparentBG.png" width="120" alt="a picture of five golden stars in a row">
-            <a class="p-1 mb-2" id="homeLink" href="../../index.php">The Great Old Hotel</a>
+            <a class="p-1 mb-2" id="homeLink" href="../../index.php">
+                <?php
+                include "../../banner/TheGreatOldOneBanner.php"
+                ?>
+            </a>
         </div>   
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -17,7 +20,18 @@
                 </li>                            
             </ul>
             <div class="nav-item d-flex justify-content-end bg-info-subtle bg-opacity-25 rounded">
-                <a class="btn btn-outline-info" id="loginLink" href="../../userManagement/login/login_form.php">Login</a>
+                <a class="btn btn-outline-info" id="loginLink" href="../../userManagement/login/login_form.php">
+                    <?php
+
+                    // uses cookie just as an example on how cookie data could be retrieved and used
+                    // this is not best practise and just for experimentation
+                    if (!isset($_SESSION["currentUser"]) && !isset($_COOKIE["LOGON_USER"])) {
+                        echo 'Login';
+                    } else {
+                        echo 'Profil';
+                    }
+                    ?>
+                </a>
             </div>
         </div>
     </div>

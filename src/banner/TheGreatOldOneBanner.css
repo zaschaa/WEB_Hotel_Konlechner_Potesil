@@ -1,0 +1,32 @@
+#TheGreatOldBanner {
+    background-color: #4a4e69;
+    height: auto;
+    border: 10px solid #4a4e69;
+    box-sizing: border-box;
+    opacity: 0.85;
+    border-radius: 25px;
+}
+
+#TheGreatOldBanner div {
+    text-align: center;
+    background: url("../images/fiveGoldenStarsTransparentBG.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    padding: 1em;
+}
+
+
+
+#bannerTextBox {
+    container: icon-dynamic/inline-size;
+}
+
+#bannerText {
+    text-align: center;
+    font-size: 10cqw; /* max(10cqw, 12px); !important;*/
+    line-height: 1em;
+    font-weight: bold;
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+
+}

@@ -23,11 +23,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $loggedInUsername = $ums->getUserByUsername($enteredUsername);
             $_SESSION["currentUser"] = $loggedInUsername;
-            setcookie("FirstCookie", $_SESSION["currentUser"]->getUsername());
+
+            setcookie("LOGON_USER", $_SESSION["currentUser"]->getUsername(), time()+31557500, '/');
 
             echo "<script>console.log(' Logged in as $enteredUsername' );</script>";
-
-            // $valueFromCookie = htmlspecialchars($_COOKIE["FirstCookie"]);
         } else {
             echo "<script>console.log(' Please check if you are already logged in or your input!' );</script>";
         }
@@ -38,6 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<script>console.log(' Logging out... ' );</script>";
         // Session also holds the registered users, and therefore it is more practical to only unset the current user
         unset($_SESSION["currentUser"]);
+        setcookie('LOGON_USER', '', -1, '/');
         echo "<script>console.log(' Session has been closed ' );</script>";
     }
 }

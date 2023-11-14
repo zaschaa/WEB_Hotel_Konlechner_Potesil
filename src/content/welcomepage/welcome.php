@@ -24,8 +24,11 @@
 
         <h2 class="mb-3">Im traditionsreichen Haus mitten in Wien.</h2>
 
-        <h1 class="homeTitle mb-2">The Great Old Hotel</h1>
+        <?php
+        include "../../banner/TheGreatOldOneBanner.php";
+        ?>
 
+        <h3 class="mb-3">Unser Hotel ist schöner als unsere Website!<br>Versprochen!!1!</h3>
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Wien_Hotel_Sacher_Am_Abend.jpg/440px-Wien_Hotel_Sacher_Am_Abend.jpg" alt="a picture of hotel Sacher at night"/>
     </div>
 </main>

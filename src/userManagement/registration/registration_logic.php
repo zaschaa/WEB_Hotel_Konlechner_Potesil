@@ -10,6 +10,11 @@ $ums->initializeUserRegistration();
 
 $ums->calloutAllRegisteredUsersOnConsole();
 
+if (isset($_SESSION["currentUser"])) {
+    header("Location: /userManagement/login/login_form.php");
+    exit();
+}
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["submit"])) {
