@@ -1,0 +1,43 @@
+.focalImage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    margin: 0 !important;
+    padding: 0 !important;
+    margin-top: -2em !important;
+    min-width: 100%;
+
+    background-image: url("../../images/hotel_front.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom center;
+
+    transform-style: preserve-3d;
+}
+
+.focalImage h2{
+    margin: 3em;
+    color: var(--headline);
+    font-size: 4em;
+    text-shadow: -1px 0 var(--highlight), 0 1px var(--highlight), 1px 0 var(--highlight), 0 -1px var(--highlight);
+    text-align: center;
+}
+
+@media (max-width: 800px) {
+    .focalImage {
+        min-height: 50em;
+    }
+}
+
+
+@media (min-width: 1200px) {
+    .focalImage {
+        min-height: 75em;
+    }
+}
+
+.focalImage img {
+    width: 100%;
+}

@@ -1,5 +1,24 @@
 footer {
     background-color: var(--tertiary);
+
+    display: flex;
+}
+
+footer ul {
+    background-color: var(--tertiary);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer ul li{
+    background-color: var(--tertiary);
+
+    text-align: center;
+    margin-top: 2em;
+    font-size: 1.2em;
+    font-weight: bolder;
 }
 
 .footerNavBorderBottom {
@@ -10,4 +29,10 @@ footer {
 
 .footerNavBgColor {
     background-color: var(--tertiary);
+}
+
+.copyright-text {
+    text-align: center;
+    margin-top: 2em;
+    font-size: 0.7em;
 }

@@ -9,6 +9,7 @@
     <title>The Great Old Hotel</title>
 
     <link rel="stylesheet" href="../../styles.css"/>
+    <link rel="stylesheet" href="welcomepage.css"/>
 </head>
 
 <body class="bgColor bg-gradient">
@@ -19,17 +20,9 @@
 </header>
 
 <main>
-    <div class="container justify-content-left">
+    <div class="container justify-content-left focalImage">
         <h2 class="mb-3">Willkommen!</h2>
-
         <h2 class="mb-3">Im traditionsreichen Haus mitten in Wien.</h2>
-
-        <?php
-        include "../../banner/TheGreatOldOneBanner.php";
-        ?>
-
-        <h3 class="mb-3">Unser Hotel ist schöner als unsere Website!<br>Versprochen!!1!</h3>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Wien_Hotel_Sacher_Am_Abend.jpg/440px-Wien_Hotel_Sacher_Am_Abend.jpg" alt="a picture of hotel Sacher at night"/>
     </div>
 </main>
 

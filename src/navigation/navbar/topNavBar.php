@@ -4,13 +4,16 @@ if (!isset($_SESSION)) {
 }
 ?>
 
-<nav class="navbar navbar-expand-lg navBarColor bg-gradient">
-    <div class="container justify-content-left">
-        <div class="navbar d-flex flex-column">
+<nav class="navbar fixed-top navbar-expand-lg navBarColor bg-gradient">
+    <div class="container justify-content-left" id="nav-mother-container">
+        <div class="navbar d-flex flex-column navbar-brand">
             <a class="p-1 mb-2" id="homeLink" href="../../index.php">
-                <?php
-                include "../../banner/TheGreatOldOneBanner.php"
-                ?>
+                <div>
+                    <img src="../../images/fiveGoldenStarsTransparentBG.png" alt="" >
+                </div>
+                <div>
+                    The Great Old One
+                </div>
             </a>
         </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -18,7 +21,7 @@ if (!isset($_SESSION)) {
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-3">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-3 nav-main-menu-item-list">
                 <?php
                 // uses cookie just as an example on how cookie data could be retrieved and used
                 // this is not best practise and just for experimentation
