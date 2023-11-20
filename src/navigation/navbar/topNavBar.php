@@ -36,6 +36,12 @@ if (!isset($_SESSION)) {
                 <li class="nav-item px-2">
                     <a href="../../content/information/news.php">Neuigkeiten</a>
                 </li>
+                <li class="nav-item px-2">
+                    <a href="../../content/information/rooms.php">Zimmer</a>
+                </li>
+                <li class="nav-item px-2">
+                    <a href="../../content/information/coupons.php">Gutscheine</a>
+                </li>
             </ul>
             <div class="nav-item d-flex justify-content-end bg-info-subtle bg-opacity-25 rounded">
                 <a class="btn btn-outline-info" id="loginLink" href="../../userManagement/login/login_form.php">
