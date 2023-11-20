@@ -22,14 +22,13 @@
             <div class="nav-item d-flex justify-content-end bg-info-subtle bg-opacity-25 rounded">
                 <a class="btn btn-outline-info" id="loginLink" href="../../userManagement/login/login_form.php">
                     <?php
-
-                    // uses cookie just as an example on how cookie data could be retrieved and used
-                    // this is not best practise and just for experimentation
-                    if (!isset($_SESSION["currentUser"]) && !isset($_COOKIE["LOGON_USER"])) {
-                        echo 'Login';
-                    } else {
-                        echo 'Profil';
-                    }
+                        // uses cookie just as an example on how cookie data could be retrieved and used
+                        // this is not best practise and just for experimentation
+                        if (!isset($_SESSION["currentUser"]) && !isset($_COOKIE["LOGON_USER"])) {
+                            echo 'Login';
+                        } else {
+                            echo 'Profil';
+                        }
                     ?>
                 </a>
             </div>

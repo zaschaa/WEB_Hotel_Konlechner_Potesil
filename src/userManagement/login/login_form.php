@@ -21,25 +21,25 @@ include './login_logic.php';
 <body class="bgColor bg-gradient">
 <header>
     <?php
-    include '../../navigation/navbar/topNavBar.php';
+        include '../../navigation/navbar/topNavBar.php';
     ?>
 </header>
 
 <main>
     <div class="container justify-content-left">
-
-        <?php if (!isset($_SESSION["currentUser"])) :
-            include './login_form_no_active_user.php';
-        else:
-            include './login_form_logged_in.php';
-        endif;
+        <?php 
+            if (!isset($_SESSION["currentUser"])) {
+                include './login_form_no_active_user.php';
+            } else {
+                include './login_form_logged_in.php';
+            }            
         ?>
     </div>
 </main>
 
 <footer>
     <?php
-    include '../../navigation/footer/footerNav.php';
+        include '../../navigation/footer/footerNav.php';
     ?>
 </footer>
 </body>

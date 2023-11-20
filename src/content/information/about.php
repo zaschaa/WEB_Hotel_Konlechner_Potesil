@@ -36,7 +36,7 @@
 
         <footer>
             <?php
-                include '../navigation/footerNav.php';
+                include '../../navigation/footer/footerNav.php';
             ?>
         </footer>        
     </body>
