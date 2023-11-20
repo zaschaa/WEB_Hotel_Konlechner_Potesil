@@ -1,0 +1,18 @@
+.navBarColor {
+    background-color: var(--secondary);
+}
+
+.navLink {
+    color: var(--text);
+}
+
+navLink:visited {
+    color: var(--text-visited);
+}
+navLink:hover {
+    color: var(--text-hover);
+    border: 1px solid var(--highlight);
+    border-radius: 10px;
+    text-decoration-line: underline;
+    background-color: var(--highlight);
+}

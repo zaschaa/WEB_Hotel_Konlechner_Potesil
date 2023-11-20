@@ -1,0 +1,27 @@
+h1 {
+    font-size: 48px;
+    color: var(--headline);
+}
+
+h2 {
+    font-size: 30px;
+    color: var(--headline);
+    opacity: 0.9;
+}
+
+a {
+    color: var(--text);
+    text-decoration: none;
+}
+
+a:visited {
+    color: var(--text-visited);
+}
+
+a:hover {
+    color: var(--text-hover);
+    border: 1px solid var(--highlight);
+    border-radius: 10px;
+    text-decoration-line: underline;
+    background-color: var(--highlight);
+}

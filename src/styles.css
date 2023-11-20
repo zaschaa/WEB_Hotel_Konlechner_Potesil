@@ -1,83 +1,39 @@
-h1 {
-    font-size: 48px;
-    color: #22223b;
+@import "styles/footer.css";
+@import "styles/navbar.css";
+@import "styles/generics.css";
+
+
+/*
+    Define color schema here:
+ */
+:root {
+    --primary: #ffffff;
+    --secondary: #1e90ff;
+    --tertiary: #22223b;
+    --headline: #22223b;
+    --text: #22223b;
+    --text-visited: #22223b;
+    --text-hover: #000000;
+    --highlight: #ffffff;
 }
 
-h2 {
-    font-size: 30px;
-    color: #22223b;
-    opacity: 0.9;
-}
-
-.navBarColor {
-    background-color: #4a4e69;
-}
+/*
+    Others and to be removed:
+ */
 
 .bgColor {
-    background-color: #9a8c98;
-}
-
-.footerLine {
-    width: 60pc;
-    height: 1px;
-    background-color: black;    
-    margin-top: 100px;
-}
-
-.footerNavBorderBottom {
-    border-bottom-style: solid;
-    border-width: 5px;
-    border-color: #c9ada7;
-}
-
-.footerNavBgColor {
-   background-color: #4a4e69;   
-}
-
-.formular {
-    color: brown;
-    border: 1px solid lightseagreen;
-}
-
-.email {
-    margin-bottom: 14px;
+    background-color: var(--primary);
 }
 
 /*selector with attribute*/
 
 label[for="title"] {
-    color: grey;
-}
-
-a {
-    color: pink;
-    text-decoration: none;    
+    color: var(--primary);
 }
 
 /* pseudo class selector*/
 
-a:visited {
-    color: plum;
-}
-
-a:hover {
-    color: plum;
-    border: 1px solid rgb(128, 128, 128);
-    text-decoration-line: underline;
-}
-
-.navLink {
-    color: pink; 
-}
-
-navLink:visited {
-    color: plum;
-}
-navLink:hover {
-    color: plum;      
-    text-decoration-line: underline;
-}
 
 #loginLink {
-    color:teal
+    color: var(--headline)
 }
