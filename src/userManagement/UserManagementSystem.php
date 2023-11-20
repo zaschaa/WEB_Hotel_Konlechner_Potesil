@@ -49,11 +49,12 @@ class UserManagementSystem
     // but in actual code, this would be done in an SQL anyway and therefore this is only a quick and dirty replacement
     public function isRegisteredUserWithCorrectPassword($username, $password)
     {
-        $isRegisteredUser = false;
         foreach ($_SESSION["registeredUsers"] as $registeredUser) {
-            $isRegisteredUser = $isRegisteredUser || $registeredUser->hasUsernameAndPassword($username, $password);
+            if ($registeredUser->hasUsernameAndPassword($username, $password)) {
+                return true;
+            }
         }
-        return $isRegisteredUser;
+        return false;
     }
 
     public function getUserByUsername($username)

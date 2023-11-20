@@ -5,12 +5,13 @@ namespace userManagement;
 class User
 {
 
-    private $username = "defaultName";
-    private $password = "password";
+    private $username = "admin";
+    private $password = "admin";
     private $sex = "Herr";
-    private $name = "Foo";
-    private $lastname = "Bar";
-    private $email = "foobar@mailmail.com";
+    private $name = "Admin";
+    private $lastname = "LeBoss";
+    private $email = "chef.admin@mailmail.com";
+    private $isAdmin = true;
 
     public function setAllValues($username, $password, $sex, $name, $lastname, $email)
     {
@@ -20,6 +21,7 @@ class User
         $this->name = $name;
         $this->lastname = $lastname;
         $this->email = $email;
+        $this->isAdmin = false;
     }
 
     public function hasUsernameAndPassword($usernameToCompare, $passwordToCompare)
@@ -81,5 +83,13 @@ class User
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isAdmin()
+    {
+        return $this->isAdmin;
     }
 }
