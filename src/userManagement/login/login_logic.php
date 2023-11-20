@@ -3,8 +3,10 @@
 use userManagement\UserManagementSystem;
 
 require_once('../UserManagementSystem.php');
+require_once('../UserInputValidator.php');
 
 $ums = new UserManagementSystem();
+$inputValidator = new \userManagement\UserInputValidator($ums);
 $ums->initializeUserRegistration();
 
 $ums->calloutAllRegisteredUsersOnConsole();
@@ -15,8 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["submit"]) && $_POST["submit"] == 'login') {
         echo "<script>console.log(' Logging in... ' );</script>";
 
-        $enteredUsername = htmlspecialchars($_POST["username"]);
-        $enteredPassword = htmlspecialchars($_POST["password"]);
+        $enteredUsername = $inputValidator->prepareInput($_POST["username"]);
+        $enteredPassword = $inputValidator->prepareInput($_POST["password"]);
 
         if (!isset($_SESSION["currentUser"])
             && $ums->isRegisteredUserWithCorrectPassword($enteredUsername, $enteredPassword)) {

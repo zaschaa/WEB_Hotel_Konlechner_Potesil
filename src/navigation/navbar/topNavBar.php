@@ -34,7 +34,7 @@ if (!isset($_SESSION)) {
                 }
                 ?>
                 <li class="nav-item px-2">
-                    <a href="../../content/information/news.php">Neuigkeiten</a>
+                    <a href="../../content/news/news_form.php">Neuigkeiten</a>
                 </li>
                 <li class="nav-item px-2">
                     <a href="../../content/information/rooms.php">Zimmer</a>

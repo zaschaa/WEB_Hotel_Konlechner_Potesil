@@ -90,6 +90,7 @@ class UserInputValidator
 
     public function prepareInput($data)
     {
+        // Hier findet die Aufbereitung des User-inputs für sämtliche Eingabemasken statt
         $sanitizedInput = htmlspecialchars($data);
         $sanitizedInput = trim($sanitizedInput);
         return stripslashes($sanitizedInput);
