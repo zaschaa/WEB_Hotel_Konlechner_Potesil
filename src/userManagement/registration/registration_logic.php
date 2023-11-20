@@ -1,38 +1,39 @@
 <?php
 
 use userManagement\User as User;
+use userManagement\UserInputValidator;
 use userManagement\UserManagementSystem;
 
 require_once('../UserManagementSystem.php');
+require_once('../UserInputValidator.php');
 
 $ums = new UserManagementSystem();
+$inputValidator = new UserInputValidator($ums);
 $ums->initializeUserRegistration();
 
 $ums->calloutAllRegisteredUsersOnConsole();
 
 $isValidRegistration = false;
 
-/*
 if (isset($_SESSION["currentUser"])) {
     header("Location: /userManagement/login/login_form.php");
     exit();
 }
-*/
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["submit"])) {
-        $enteredSex =  $ums->prepareInput($_POST["sex"]);
-        $enteredName = $ums->prepareInput($_POST["name"]);
-        $enteredLastname = $ums->prepareInput($_POST["lastname"]);
-        $enteredEmail = $ums->prepareInput($_POST["email"]);
-        $enteredUsername = $ums->prepareInput($_POST["username"]);
-        $enteredPassword1 = $ums->prepareInput($_POST["password"]);
-        $enteredPassword2 = $ums->prepareInput($_POST["password2"]);
+        $enteredSex =  $inputValidator->prepareInput($_POST["sex"]);
+        $enteredName = $inputValidator->prepareInput($_POST["name"]);
+        $enteredLastname = $inputValidator->prepareInput($_POST["lastname"]);
+        $enteredEmail = $inputValidator->prepareInput($_POST["email"]);
+        $enteredUsername = $inputValidator->prepareInput($_POST["username"]);
+        $enteredPassword1 = $inputValidator->prepareInput($_POST["password"]);
+        $enteredPassword2 = $inputValidator->prepareInput($_POST["password2"]);
 
-        $isValidRegistration = $ums->isValidRegistration($enteredEmail, $enteredUsername, $enteredPassword1, $enteredPassword2);     
-        $emailErrMessage = $ums->getEmailErrMessage();
-        $userNameErrMessage = $ums->getUserNameErrMessage();
-        $pwErrMessage = $ums->getPwErrMessage();   
+        $isValidRegistration = $inputValidator->isValidRegistration($enteredEmail, $enteredUsername, $enteredPassword1, $enteredPassword2);
+        $emailErrMessage = $inputValidator->getEmailErrMessage();
+        $userNameErrMessage = $inputValidator->getUserNameErrMessage();
+        $pwErrMessage = $inputValidator->getPwErrMessage();
 
         if ($isValidRegistration) {
             $newUser = new User();
@@ -50,5 +51,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // ToDo: else { fail }
     }
 }
-
-?>

@@ -2,37 +2,10 @@
 
 namespace userManagement;
 require_once 'User.php';
+require_once 'User.php';
 
 class UserManagementSystem
-{   
-
-    private $emailErrMessage;
-    private $userNameErrMessage;
-    private $pwErrMessage;    
-
-    /**
-     * @return string
-     */
-    public function getEmailErrMessage()
-    {   
-        return $this->emailErrMessage;        
-    }
-
-    /**
-     * @return string
-     */
-    public function getUserNameErrMessage()
-    {
-        return $this->userNameErrMessage;        
-    }
-
-    /**
-     * @return string
-     */
-    public function getPwErrMessage()
-    {
-        return $this->pwErrMessage;
-    }
+{
 
     public function initializeUserRegistration()
     {
@@ -102,7 +75,7 @@ class UserManagementSystem
         }
     }
 
-    private function isRegisteredUser($usernameToCheck)
+    public function isRegisteredUser($usernameToCheck)
     {        
         foreach ($_SESSION["registeredUsers"] as $registeredUser) {
             if($registeredUser->getUsername() === $usernameToCheck) {                
@@ -112,7 +85,7 @@ class UserManagementSystem
         return false;
     }
 
-    private function isRegisteredEmail($emailToCheck)
+    public function isRegisteredEmail($emailToCheck)
     {      
         foreach ($_SESSION["registeredUsers"] as $registeredUser) {
             if($registeredUser->getEmail() === $emailToCheck) {                
@@ -121,55 +94,4 @@ class UserManagementSystem
         }
         return false;
     }
-        
-    public function isValidEmail($email) 
-    {        
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {        
-            $this->emailErrMessage = "Ungültiges E-Mail-Format!";
-            return false;
-        } else if($this->isRegisteredEmail($email)) {
-            $this->emailErrMessage = "Die E-Mail-Adresse wurde bereits registriert!";
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    private function isValidUsername($username) 
-    {        
-        if(strlen($username)<5) {       
-            $this->userNameErrMessage = "Der Username muss mindestens 5 Zeichen lang sein!";
-            return false;
-        } else if ($this->isRegisteredUser($username)) {
-            $this->userNameErrMessage = "Der Username existiert bereits!";
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    public function isValidPassword($password1, $password2) 
-    {        
-        if(strlen($password1)<8) {        
-            $this->pwErrMessage = "Das Passwort muss mindestens 8 Zeichen lang sein!";
-            return false;
-        } else if ($password1 !== $password2) {
-            $this->pwErrMessage = "Die Passwörter stimmen nicht überein!";
-            return false;
-        } else {
-            return true;
-        }
-    }   
-
-    public function isValidRegistration($email, $username, $password1, $password2) {        
-        return $this->isValidEmail($email) && $this->isValidUsername($username) && $this->isValidPassword($password1, $password2);
-    }  
-
-    public function prepareInput($data) {
-        $data = htmlspecialchars($data);
-        $data = trim($data);
-        $data = stripslashes($data);    
-        return $data;
-    }
-
 }
