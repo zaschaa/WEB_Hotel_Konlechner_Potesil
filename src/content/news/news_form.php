@@ -54,11 +54,31 @@
             <div>
                 <?php
                 $formattedArticles = getAndFormatAllNewsArticles();
-                foreach ($formattedArticles as $article) {
-                    $foo = $article->getThumbnailPath();
-                        echo "<img src='$foo' alt='moo'>";
-                }
                 ?>
+                <ul id="newsList">
+                    <?php
+                    foreach ($formattedArticles as $article) {
+                        $thumbnail = $article->getThumbnailPath();
+                        $headline = $article->getHeadline();
+                        $description = $article->getDescription();
+                        ?>
+                        <li class="newsListItem">
+                            <div class="article">
+                                <?php
+                                echo "<img src='$thumbnail' alt='moo'>";
+                                ?>
+                                <div class="newsBody">
+                                    <?php
+                                    echo "<h2>$headline</h2>";
+                                    echo "<p>$description</p>";
+                                    ?>
+                                </div>
+                            </div>
+                        </li>
+                        <?php
+                    }
+                    ?>
+                </ul>
             </div>
         </div>
     </div>
