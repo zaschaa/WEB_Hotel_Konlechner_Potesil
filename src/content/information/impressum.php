@@ -36,13 +36,15 @@
 
             <h2>Geschäftsführung</h2>
             <p>Sascha Potesil, BSc i.S.</p>
-            <P>DI Konrad Konlechner</P> 
-            <br>
+            <P>DI Konrad Konlechner</P><br>
+            
+            <img class="mb-2" src="../../images/konrad_in_hammock.jpg" alt="a picture of a Konrad Konlechner in a hammock">
+
             <p>Verbraucher haben die Möglichkeit,
                 Beschwerden an die Online-
                 Streitbeilegungsplattform der EU zu
                 richten:<br>
-                <a href="http://ec.europa.eu/odr">http://ec.europa.eu/odr</a><br>
+                <a class="text-decoration-underline" href="http://ec.europa.eu/odr">http://ec.europa.eu/odr</a><br>
                 Sie können allfällige Beschwerden auch an
                 die oben angegebene E-Mail-Adresse
                 richten.</p>

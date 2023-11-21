@@ -27,7 +27,7 @@
                 </p>
                 <img class="mb-2" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Wien_-_Sachertorte.jpg/440px-Wien_-_Sachertorte.jpg" alt="a picture of a chocolate cake">
                 
-                <p>Das Haus verfügt über fünf Sterne und ist Mitglied der <a href="https://de.lhw.com/">Leading Hotels of the World</a>.</p>
+                <p>Das Haus verfügt über fünf Sterne und ist Mitglied der <a class="text-decoration-underline" href="https://de.lhw.com/">Leading Hotels of the World</a>.</p>
                 <p>Im Jahr 2006 wurde das Gebäude, das sich in seiner Bausubstanz aus insgesamt sechs Stadthäusern zusammensetzt, 
                 unter der Leitung des Architekturbüros Frank & Partner thermisch generalsaniert, und ein Dachausbau durchgeführt, in dem ein Spa-Bereich untergebracht ist.
                 </p>
