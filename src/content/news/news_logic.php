@@ -1,15 +1,18 @@
 <?php
+require_once "./NewsArticle.php";
 require_once "./NewsManagementSystem.php";
 
 $nms = new NewsManagementSystem();
-
-
-$newsArticleList = $nms->getAllNews();
-
-if (empty($newsArticleList)) {
-    echo "Sie sind am neuesten Stand, denn es gibt keinerlei Neuigkeiten!";
+if (!isset($_SESSION["news"])) {
+    $_SESSION["news"] = [];
 }
 
-foreach ($newsArticleList as $newsArticle) {
-    echo "There is a new";
+function getAndFormatAllNewsArticles() {
+    global $nms;
+    $newsArticleList = $nms->getAllNews();
+    if (empty($newsArticleList)) {
+        echo "Sie sind am neuesten Stand, denn es gibt keinerlei Neuigkeiten!";
+    }
+
+    return $newsArticleList;
 }

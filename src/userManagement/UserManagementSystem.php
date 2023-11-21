@@ -15,7 +15,6 @@ class UserManagementSystem
 
         if (!isset($_SESSION["registeredUsers"])) {
             $initUser = new User();
-
             $_SESSION["registeredUsers"] = [$initUser];
         }
     }

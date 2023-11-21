@@ -16,7 +16,9 @@
 <header>
     <?php
     require_once "../../userManagement/User.php";
+    require_once "./NewsArticle.php";
     include '../../navigation/navbar/topNavBar.php';
+    include "news_logic.php";
     ?>
 </header>
 
@@ -31,11 +33,11 @@
                 if (isset($_SESSION["currentUser"]) && $_SESSION["currentUser"]->isAdmin()) {
                     ?>
                     <p class="d-inline-flex gap-1">
-                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#createArticleField" aria-expanded="false"
-                                aria-controls="collapseExample">
+
+                        <a class="btn btn-primary" data-bs-toggle="collapse" href="#createArticleField" role="button"
+                           aria-expanded="false" aria-controls="collapseExample">
                             Neuen News-Artikel anlegen
-                        </button>
+                        </a>
                     </p>
                     <div class="collapse" id="createArticleField">
                         <div class="card card-body">
@@ -51,7 +53,11 @@
 
             <div>
                 <?php
-                include "news_logic.php";
+                $formattedArticles = getAndFormatAllNewsArticles();
+                foreach ($formattedArticles as $article) {
+                    $foo = $article->getThumbnailPath();
+                        echo "<img src='$foo' alt='moo'>";
+                }
                 ?>
             </div>
         </div>
