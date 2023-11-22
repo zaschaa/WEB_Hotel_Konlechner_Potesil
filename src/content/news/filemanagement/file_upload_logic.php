@@ -58,11 +58,11 @@ function listAllFilesInDirectory()
 
 function createThumbnail($imagePath, $fileName) {
     global $thumbnailPath;
-    $resizedImage = resize_image($imagePath, 200, 200);
+    $resizedImage = resizeImage($imagePath, 200, 200);
     imagejpeg($resizedImage, $thumbnailPath . 'thumbnail_' . $fileName);
 }
 
-function resize_image($file, $w, $h, $crop=FALSE) {
+function resizeImage($file, $w, $h, $crop=FALSE) {
     list($width, $height) = getimagesize($file);
     $r = $width / $height;
     if ($crop) {

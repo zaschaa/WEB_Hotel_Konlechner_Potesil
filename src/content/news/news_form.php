@@ -65,7 +65,7 @@
                         <li class="newsListItem">
                             <div class="article">
                                 <?php
-                                echo "<img src='$thumbnail' alt='moo'>";
+                                echo "<img src='$thumbnail' alt='Thumbnail'>";
                                 ?>
                                 <div class="newsBody">
                                     <?php
