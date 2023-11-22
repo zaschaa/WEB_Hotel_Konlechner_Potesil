@@ -51,3 +51,7 @@ navLink:hover {
     border-color: var(--highlight) !important;
     color: var(--text) !important;
 }
+
+.bg-info-subtle {
+    background-color: var(--secondary) !important;
+}

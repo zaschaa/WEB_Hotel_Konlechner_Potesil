@@ -5,21 +5,24 @@ include 'file_upload_logic.php';
 // phpinfo();
 ?>
 
-<h3> File Upload</h3>
-<form method="POST" enctype="multipart/form-data">
+<h3>Neuen Newsartikel anlegen</h3>
+<form method="POST" enctype="multipart/form-data" class="flex-column">
     <input type="file" id="file" name="file">
 
-    <label for="headline">
-    </label>
-    <input type="text" id="headline" name="headline">
+    <div class="newsTextInputField">
+        <label for="headline" class="form-label col-lg-2">Überschrift</label>
+        <input type="text" id="headline" name="headline">
+    </div>
 
-    <label for="description"></label>
-    <input type="text" id="description" name="description">
+    <div class="newsTextInputField">
+        <label for="description" class="form-label col-lg-2">Beschreibung</label>
+        <input type="text" id="description" name="description">
+    </div>
     <input class="btn btn-success" type="submit" id="submit" value="Hochladen">
 </form>
 
 <ul>
     <?php
-    listAllFilesInDirectory()
+    // listAllFilesInDirectory()
     ?>
 </ul>
