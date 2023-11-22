@@ -36,9 +36,9 @@
 
             <h2>Geschäftsführung</h2>
             <p>Sascha Potesil, BSc i.S.</p>
-            <P>DI Konrad Konlechner</P><br>
-            
-            <img class="mb-2" src="../../images/konrad_in_hammock.jpg" alt="a picture of a Konrad Konlechner in a hammock">
+            <P>DI Konrad Konlechner</P>
+            <img class="mb-3" src="../../images/sascha.jpg" alt="a photograph of a Sascha Potesil">
+            <img class="mb-3" src="../../images/konrad_in_hammock.jpg" alt="a photograph of a Konrad Konlechner in a hammock">
 
             <p>Verbraucher haben die Möglichkeit,
                 Beschwerden an die Online-

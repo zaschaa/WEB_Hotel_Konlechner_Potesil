@@ -28,7 +28,7 @@
                     <dt><b>Verfügt das Hotel über eine Tag und Nacht besetzte Rezeption?</b></dt>
                     <dd>- Ja, unsere Rezeption ist 24 h / 7 Tage die Woche besetzt.</dd><br>
                     <dt><b>Wie kann ich eine Reservierung durchführen?</b></dt>
-                    <dd>- Gerne können Sie sich telefonisch unter +43 1 333 40 77-0< oder per Email an <a class="text-decoration-underline" href="mailto:office@thegreatoldhotel.vienna">office@thegreatoldhotel.vienna</a> mit einer Reservierungsanfrage an uns wenden.</dd>
+                    <dd>- Gerne können Sie sich telefonisch unter +43 1 333 40 77-0< oder per Email an <a class="text-decoration-underline" href="mailto:office@thegreatoldone.vienna">office@thegreatoldone.vienna</a> mit einer Reservierungsanfrage an uns wenden.</dd>
                     <dd>- Falls Sie jedoch lieber selbst online eine Reservierung durchführen möchten, so ist es erforderlich, sich mittels eines Formulars auf dieser Webseite als Benutzer zu registrieren.<br><br>
                         <p>
                             Zur Registrierung gelanden Sie hier: <a href='../userManagement/registration/registration_form.php' class="text-decoration-underline">Benutzer-Registrierung</a><br>
