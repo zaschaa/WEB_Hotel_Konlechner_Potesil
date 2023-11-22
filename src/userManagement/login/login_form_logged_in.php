@@ -59,7 +59,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             );
 
             $ums->updateUser($updatedUser);
-            $_SESSION['currentUser'] = $updatedUser;            
+            $_SESSION['currentUser'] = $updatedUser;
+            $currentUser = $updatedUser;
         }
         // ToDo: else { fail }
     }
