@@ -19,6 +19,8 @@ if (!file_exists($thumbnailPath)) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    var_dump($_POST);
+
     if (isset($_FILES["file"]["name"])) {
         echo "<script> console.log('File uploaded...' )</script>";
         $fileName = $_FILES["file"]["name"];

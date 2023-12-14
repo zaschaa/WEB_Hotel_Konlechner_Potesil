@@ -7,6 +7,7 @@ class NewsArticle
     private $thumbnailPath;
     private $headline;
     private $description;
+    private $id;
 
     /**
      * @param $imagePath
@@ -16,10 +17,13 @@ class NewsArticle
      */
     public function __construct($imagePath, $thumbnailPath, $headline, $description)
     {
+        $id = isset($_SESSION["news"]) ? sizeof($_SESSION["news"]) : 0;
+
         $this->imagePath = $imagePath;
         $this->thumbnailPath = $thumbnailPath;
         $this->headline = $headline;
         $this->description = $description;
+        $this->id = $id;
     }
 
 
@@ -54,5 +58,13 @@ class NewsArticle
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }

@@ -73,6 +73,11 @@
                                     echo "<p>$description</p>";
                                     ?>
                                 </div>
+                                <form method="POST" enctype="multipart/form-data" class="flex-column">
+                                    <button class="btn btn-danger" type="submit" id="submit" value="delete">
+                                        Löschen
+                                    </button>
+                                </form>
                             </div>
                         </li>
                         <?php

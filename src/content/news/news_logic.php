@@ -7,6 +7,7 @@ if (!isset($_SESSION["news"])) {
     $_SESSION["news"] = [];
 }
 
+
 function getAndFormatAllNewsArticles() {
     global $nms;
     $newsArticleList = $nms->getAllNews();

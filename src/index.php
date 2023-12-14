@@ -30,6 +30,7 @@
     <body class="bgColor bg-gradient">
         <header>
             <?php
+            require_once "database/initDatabaseTables.php";
             header("Location: content/welcomepage/welcome.php");
             exit();
             ?>
