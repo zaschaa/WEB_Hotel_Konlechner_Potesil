@@ -39,7 +39,7 @@ class UserRepository
         );
     }
 
-    public function getHashedPasswordForUsername($usernameToCheck): User
+    public function getHashedPasswordForUsername($usernameToCheck): string
     {
         require '../../database/dbaccess.php';
         # Prepared statement
@@ -81,7 +81,6 @@ class UserRepository
 
     public function countUsersByUsername($usernameToCheck)
     {
-        require '../../database/dbaccess.php';
         $sqlInsert = "SELECT COUNT(*) FROM users WHERE username = ?";
 
         return $this->prepareAndExecuteCountForSqlStatementWithBoundStringParameter($sqlInsert, $usernameToCheck);
@@ -89,7 +88,6 @@ class UserRepository
 
     public function countUsersByEmail($emailToCheck)
     {
-        require '../../database/dbaccess.php';
         $sqlInsert = "SELECT COUNT(*) FROM users WHERE email = ?";
 
         return $this->prepareAndExecuteCountForSqlStatementWithBoundStringParameter($sqlInsert, $emailToCheck);
@@ -99,6 +97,7 @@ class UserRepository
         string $sqlInsert,
         string $stringValueToCheck
     ) {
+        require '../../database/dbaccess.php';
         $statement = $connection->prepare($sqlInsert);
         $statement->bind_param("s", $stringValueToCheck);
 
