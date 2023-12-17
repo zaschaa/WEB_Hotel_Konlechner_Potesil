@@ -73,24 +73,62 @@ class UserManagementSystem
 
     // this might not be optimal, has we have to iterate over each registered user
     // but in actual code, this would be done in an SQL anyway and therefore this is only a quick and dirty replacement
-    public function isRegisteredUserWithCorrectPassword($username, $password)
+    public function isRegisteredUserWithCorrectPassword($usernameToCheck, $passwordToCheck)
     {
-        foreach ($_SESSION["registeredUsers"] as $registeredUser) {
-            if ($registeredUser->hasUsernameAndPassword($username, $password)) {
-                return true;
-            }
-        }
+        require '../../database/dbaccess.php';        
+       
+        # Prepared statement
+        $sqlInsert = "SELECT password FROM users WHERE username = ?";
+        # ? --> placeholder in prepared statement !!! Avoid SQL injection !!!
+
+        $statement = $connection->prepare($sqlInsert);
+        $statement->bind_param("s", $username); # character "s" is used due to placeholders of type String
+
+        $username = $usernameToCheck;
+
+        $statement->execute();
+
+        $statement->bind_result($password);
+
+        $statement->fetch();
+
+        $statement->close();
+        $connection->close();
+        
+        if(password_verify($passwordToCheck, $password)) {
+            return true;
+        } 
+
         return false;
     }
 
-    public function getUserByUsername($username)
+    public function getUserByUsername($usernameToCheck)
     {
-        foreach ($_SESSION["registeredUsers"] as $registeredUser) {
-            if ($registeredUser->getUsername() === $username) {
-                return $registeredUser;
-            }
-        }
-        return null;
+        require '../../database/dbaccess.php';        
+       
+        # Prepared statement
+        $sqlInsert = "SELECT * FROM users WHERE username = ?";
+        # ? --> placeholder in prepared statement !!! Avoid SQL injection !!!
+
+        $statement = $connection->prepare($sqlInsert);
+        $statement->bind_param("s", $username); # character "s" is used due to placeholders of type String
+
+        $username = $usernameToCheck;
+
+        $statement->execute();
+
+        $statement->bind_result($id, $uName, $password, $sex, $fname, $lname, $email, $isAdmin);
+
+        $statement->fetch();
+
+        $statement->close();
+        $connection->close();
+
+        $user = new user();
+
+        $user->setAllValues($uName, $password, $sex, $fname, $lname, $email, $isAdmin);
+        
+        return $user;        
     }
 
     // logs all currently registered users with name and password
