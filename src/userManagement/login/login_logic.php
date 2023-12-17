@@ -9,9 +9,6 @@ $ums = new UserManagementSystem();
 $inputValidator = new \userManagement\UserInputValidator($ums);
 $ums->initializeUserRegistration();
 
-$ums->calloutAllRegisteredUsersOnConsole();
-
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (isset($_POST["submit"]) && $_POST["submit"] == 'login') {
@@ -20,7 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $enteredUsername = $inputValidator->prepareInput($_POST["username"]);
         $enteredPassword = $inputValidator->prepareInput($_POST["password"]);
 
-        if (!isset($_SESSION["currentUser"]) && $ums->isRegisteredUserWithCorrectPassword($enteredUsername, $enteredPassword)) {
+        if (!isset($_SESSION["currentUser"])
+            && $ums->isRegisteredUserWithCorrectPassword($enteredUsername, $enteredPassword)) {
 
             $loggedInUsername = $ums->getUserByUsername($enteredUsername);
             $_SESSION["currentUser"] = $loggedInUsername;

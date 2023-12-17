@@ -9,7 +9,7 @@ class UserInputValidator
     private $emailErrMessage;
     private $userNameErrMessage;
     private $pwErrMessage;
-    private $ums;
+    private UserManagementSystem $ums;
 
     /**
      * @param $ums

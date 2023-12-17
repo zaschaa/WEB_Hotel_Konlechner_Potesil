@@ -2,9 +2,16 @@
 
 namespace userManagement;
 require_once 'User.php';
+require_once 'UserRepository.php';
 
 class UserManagementSystem
 {
+    private UserRepository $repository;
+
+    public function __construct()
+    {
+        $this->repository = new UserRepository();
+    }
 
     public function initializeUserRegistration()
     {
@@ -18,38 +25,10 @@ class UserManagementSystem
         }
     }
 
-    private function addUserToDatabase($user)
-    {      
-        require '../../database/dbaccess.php';
-
-        # Prepared statement
-        $sqlInsert = "INSERT INTO users (username, password, sex, firstname, lastname, email) VALUES (?,?,?,?,?,?)";
-        # ? --> placeholder in prepared statement !!! Avoid SQL injection !!!
-
-        $statement = $connection->prepare($sqlInsert);
-        $statement->bind_param("ssssss", $username, $passwd, $sex, $fname, $lname, $email); # character "s" is used due to placeholders of type String
-
-        $username = $user->getUsername();
-        $passwd = password_hash($user->getPassword(), PASSWORD_BCRYPT);
-        $sex = $user->getSex();
-        $fname = $user->getName();
-        $lname = $user->getLastname();
-        $email= $user->getEmail();
-
-        if ($statement->execute()) {
-            //echo "<h1>Success!</h1>";
-        } else {
-            //echo "<h1>Failed to insert!</h1>";
-        }
-
-        $statement->close();
-        $connection->close();
-    }
-
     public function saveUserAsRegistered(User $user)
     {
         if (!$this->isRegisteredUser($user->getUsername())) {
-            $this->addUserToDatabase($user);
+            $this->repository->addUserToDatabase($user);
         } else {
             echo "<script>console.log(' User with Username $user->getUsername() already exists ' );</script>";
         }
@@ -75,126 +54,31 @@ class UserManagementSystem
     // but in actual code, this would be done in an SQL anyway and therefore this is only a quick and dirty replacement
     public function isRegisteredUserWithCorrectPassword($usernameToCheck, $passwordToCheck)
     {
-        require '../../database/dbaccess.php';        
-       
-        # Prepared statement
-        $sqlInsert = "SELECT password FROM users WHERE username = ?";
-        # ? --> placeholder in prepared statement !!! Avoid SQL injection !!!
+        $hashedPasswordFromDb = $this->repository->getHashedPasswordForUsername($usernameToCheck);
 
-        $statement = $connection->prepare($sqlInsert);
-        $statement->bind_param("s", $username); # character "s" is used due to placeholders of type String
-
-        $username = $usernameToCheck;
-
-        $statement->execute();
-
-        $statement->bind_result($password);
-
-        $statement->fetch();
-
-        $statement->close();
-        $connection->close();
-        
-        if(password_verify($passwordToCheck, $password)) {
+        if (password_verify($passwordToCheck, $hashedPasswordFromDb)) {
             return true;
-        } 
+        }
 
         return false;
     }
 
     public function getUserByUsername($usernameToCheck)
     {
-        require '../../database/dbaccess.php';        
-       
-        # Prepared statement
-        $sqlInsert = "SELECT * FROM users WHERE username = ?";
-        # ? --> placeholder in prepared statement !!! Avoid SQL injection !!!
-
-        $statement = $connection->prepare($sqlInsert);
-        $statement->bind_param("s", $username); # character "s" is used due to placeholders of type String
-
-        $username = $usernameToCheck;
-
-        $statement->execute();
-
-        $statement->bind_result($id, $uName, $password, $sex, $fname, $lname, $email, $isAdmin);
-
-        $statement->fetch();
-
-        $statement->close();
-        $connection->close();
-
-        $user = new user();
-
-        $user->setAllValues($uName, $password, $sex, $fname, $lname, $email, $isAdmin);
-        
-        return $user;        
+        return $this->repository->getUserByUsername($usernameToCheck);
     }
 
-    // logs all currently registered users with name and password
-    public function calloutAllRegisteredUsersOnConsole()
+    public function isRegisteredUser($usernameToCheck): bool
     {
-        foreach ($_SESSION["registeredUsers"] as $registeredUser) {
-            $registeredUserDate = $registeredUser->getUserData();
-            echo "<script>console.log(' $registeredUserDate ' );</script>";
-        }
+        $count = $this->repository->countUsersByUsername($usernameToCheck);
+
+        return $count > 0;
     }
 
-    public function isRegisteredUser($usernameToCheck)
-    {        
-        require '../../database/dbaccess.php';        
-       
-        # Prepared statement
-        $sqlInsert = "SELECT COUNT(*) FROM users WHERE username = ?";
-        # ? --> placeholder in prepared statement !!! Avoid SQL injection !!!
+    public function isRegisteredEmail($emailToCheck): bool
+    {
+        $count = $this->repository->countUsersByEmail($emailToCheck);
 
-        $statement = $connection->prepare($sqlInsert);
-        $statement->bind_param("s", $username); # character "s" is used due to placeholders of type String
-
-        $username = $usernameToCheck;
-
-        $statement->execute();
-
-        $statement->bind_result($count);
-
-        $statement->fetch();
-
-        $statement->close();
-        $connection->close();
-
-        if($count === 1) {                
-            return true;
-        }     
-        
-        return false;               
-    }
-
-    public function isRegisteredEmail($emailToCheck)
-    {      
-        require '../../database/dbaccess.php';        
-       
-        # Prepared statement
-        $sqlInsert = "SELECT COUNT(*) FROM users WHERE email = ?";
-        # ? --> placeholder in prepared statement !!! Avoid SQL injection !!!
-
-        $statement = $connection->prepare($sqlInsert);
-        $statement->bind_param("s", $email); # character "s" is used due to placeholders of type String
-
-        $email = $emailToCheck;
-
-        $statement->execute();
-
-        $statement->bind_result($count);
-
-        $statement->fetch();
-
-        $statement->close();
-        $connection->close();
-
-        if($count >= 1) {                
-            return true;
-        }     
-        
-        return false;   
+        return $count > 0;
     }
 }

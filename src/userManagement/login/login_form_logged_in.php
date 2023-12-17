@@ -14,9 +14,6 @@ $ums->initializeUserRegistration();
 $currentUser = $_SESSION["currentUser"];
 
 $username = $_SESSION["currentUser"]->getUsername();
-// FixMe: this is once again only for experimentation reasons
-echo "<script> console.log('Currently logged in as: $username ' )</script>";
-
 $isUpdateInputValid = false;
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {

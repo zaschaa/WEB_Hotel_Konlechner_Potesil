@@ -11,8 +11,6 @@ $ums = new UserManagementSystem();
 $inputValidator = new UserInputValidator($ums);
 $ums->initializeUserRegistration();
 
-$ums->calloutAllRegisteredUsersOnConsole();
-
 $isValidRegistration = false;
 
 if (isset($_SESSION["currentUser"])) {

@@ -13,7 +13,7 @@ class User
     private $email = "chef.admin@mailmail.com";
     private $isAdmin = true;
 
-    public function setAllValues($username, $password, $sex, $name, $lastname, $email, $isA)
+    public function setAllValues($username, $password, $sex, $name, $lastname, $email)
     {
         $this->username = $username;
         $this->password = $password;
@@ -21,7 +21,20 @@ class User
         $this->name = $name;
         $this->lastname = $lastname;
         $this->email = $email;
-        $this->isAdmin = $isA;
+        $this->isAdmin = false;
+    }
+
+    public static function of($username, $password, $sex, $name, $lastname, $email, $isAdmin): User
+    {
+        $user = new User();
+        $user->username = $username;
+        $user->password = $password;
+        $user->sex = $sex;
+        $user->name = $name;
+        $user->lastname = $lastname;
+        $user->email = $email;
+        $user->isAdmin = $isAdmin;
+        return $user;
     }
 
     public function hasUsernameAndPassword($usernameToCompare, $passwordToCompare)
