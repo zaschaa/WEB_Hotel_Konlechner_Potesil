@@ -2,7 +2,6 @@
 
 namespace userManagement;
 require_once 'User.php';
-require_once 'User.php';
 
 class UserManagementSystem
 {
@@ -19,10 +18,38 @@ class UserManagementSystem
         }
     }
 
+    private function addUserToDatabase($user)
+    {      
+        require '../../database/dbaccess.php';
+
+        # Prepared statement
+        $sqlInsert = "INSERT INTO users (username, password, sex, firstname, lastname, email) VALUES (?,?,?,?,?,?)";
+        # ? --> placeholder in prepared statement !!! Avoid SQL injection !!!
+
+        $statement = $connection->prepare($sqlInsert);
+        $statement->bind_param("ssssss", $username, $passwd, $sex, $fname, $lname, $email); # character "s" is used due to placeholders of type String
+
+        $username = $user->getUsername();
+        $passwd = password_hash($user->getPassword(), PASSWORD_BCRYPT);
+        $sex = $user->getSex();
+        $fname = $user->getName();
+        $lname = $user->getLastname();
+        $email= $user->getEmail();
+
+        if ($statement->execute()) {
+            //echo "<h1>Success!</h1>";
+        } else {
+            //echo "<h1>Failed to insert!</h1>";
+        }
+
+        $statement->close();
+        $connection->close();
+    }
+
     public function saveUserAsRegistered(User $user)
     {
         if (!$this->isRegisteredUser($user->getUsername())) {
-            $_SESSION["registeredUsers"][] = $user;
+            $this->addUserToDatabase($user);
         } else {
             echo "<script>console.log(' User with Username $user->getUsername() already exists ' );</script>";
         }
@@ -77,21 +104,59 @@ class UserManagementSystem
 
     public function isRegisteredUser($usernameToCheck)
     {        
-        foreach ($_SESSION["registeredUsers"] as $registeredUser) {
-            if($registeredUser->getUsername() === $usernameToCheck) {                
-                return true;
-            }
-        }
-        return false;
+        require '../../database/dbaccess.php';        
+       
+        # Prepared statement
+        $sqlInsert = "SELECT COUNT(*) FROM users WHERE username = ?";
+        # ? --> placeholder in prepared statement !!! Avoid SQL injection !!!
+
+        $statement = $connection->prepare($sqlInsert);
+        $statement->bind_param("s", $username); # character "s" is used due to placeholders of type String
+
+        $username = $usernameToCheck;
+
+        $statement->execute();
+
+        $statement->bind_result($count);
+
+        $statement->fetch();
+
+        $statement->close();
+        $connection->close();
+
+        if($count === 1) {                
+            return true;
+        }     
+        
+        return false;               
     }
 
     public function isRegisteredEmail($emailToCheck)
     {      
-        foreach ($_SESSION["registeredUsers"] as $registeredUser) {
-            if($registeredUser->getEmail() === $emailToCheck) {                
-                return true;    
-            }             
-        }
-        return false;
+        require '../../database/dbaccess.php';        
+       
+        # Prepared statement
+        $sqlInsert = "SELECT COUNT(*) FROM users WHERE email = ?";
+        # ? --> placeholder in prepared statement !!! Avoid SQL injection !!!
+
+        $statement = $connection->prepare($sqlInsert);
+        $statement->bind_param("s", $email); # character "s" is used due to placeholders of type String
+
+        $email = $emailToCheck;
+
+        $statement->execute();
+
+        $statement->bind_result($count);
+
+        $statement->fetch();
+
+        $statement->close();
+        $connection->close();
+
+        if($count >= 1) {                
+            return true;
+        }     
+        
+        return false;   
     }
 }

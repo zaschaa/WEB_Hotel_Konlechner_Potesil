@@ -20,11 +20,19 @@ if ($connection->connect_error) {
 // sql to create table
 $tableSqlList = [
     "CREATE TABLE `users` (
-	`id` INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-	`username` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
-	`password` VARCHAR(250) NOT NULL COLLATE 'utf8mb4_general_ci',
-	`sex` ENUM('Keine','Herr','Frau') NOT NULL DEFAULT 'Keine' COLLATE 'utf8mb4_general_ci',
-	`firstname` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci')"
+        `id` INT(11) NOT NULL AUTO_INCREMENT,
+        `username` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
+        `password` VARCHAR(250) NOT NULL COLLATE 'utf8mb4_general_ci',
+        `sex` ENUM('Keine','Herr','Frau') NOT NULL DEFAULT 'Keine' COLLATE 'utf8mb4_general_ci',
+        `firstname` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
+        `lastname` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
+        `email` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
+        `is_admin` TINYINT(1) NOT NULL DEFAULT '0',
+        PRIMARY KEY (`id`) USING BTREE,
+        UNIQUE INDEX `idx_username` (`username`) USING BTREE
+    )
+    COLLATE='utf8mb4_general_ci'
+    ENGINE=InnoDB;"
 ];
 
 foreach ($tableSqlList as $tableSql) {
