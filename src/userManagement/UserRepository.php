@@ -9,10 +9,10 @@ class UserRepository
     public function getUserByUsername($usernameToCheck): User
     {
         require '../../database/dbaccess.php';
-        $sqlInsert = "SELECT * FROM users WHERE username = ?";
+        $sqlSelect = "SELECT * FROM users WHERE username = ?";
         # ? --> placeholder in prepared statement !!! Avoid SQL injection !!!
 
-        $statement = $connection->prepare($sqlInsert);
+        $statement = $connection->prepare($sqlSelect);
         $statement->bind_param("s", $usernameToCheck); # character "s" is used due to placeholders of type String
 
         $fetchedUser = $this->fetchAndBindResult($statement);
@@ -28,7 +28,7 @@ class UserRepository
 
         $statement->close();
 
-        return User::of(
+        return User::of( # use constructor-like method to create new instance of user
             $uName,
             $password,
             $sex,
@@ -67,7 +67,7 @@ class UserRepository
         $statement->bind_param(
             "ssssss",
             $user->getUsername(),
-            $user->getPassword(),
+            password_hash($user->getPassword(), PASSWORD_BCRYPT),
             $user->getSex(),
             $user->getName(),
             $user->getLastname(),

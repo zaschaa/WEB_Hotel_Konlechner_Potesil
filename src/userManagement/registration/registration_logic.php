@@ -9,7 +9,10 @@ require_once('../UserInputValidator.php');
 
 $ums = new UserManagementSystem();
 $inputValidator = new UserInputValidator($ums);
-$ums->initializeUserRegistration();
+
+if (!isset($_SESSION)) {
+    session_start();
+}
 
 $isValidRegistration = false;
 

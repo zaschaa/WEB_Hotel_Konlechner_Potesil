@@ -1,3 +1,7 @@
+<?php
+    require_once "../../database/initDatabaseTables.php";
+?>
+
 <!DOCTYPE html>
 <html lang="DE">
 <head>

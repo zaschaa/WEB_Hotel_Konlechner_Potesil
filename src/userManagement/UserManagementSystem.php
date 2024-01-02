@@ -12,19 +12,7 @@ class UserManagementSystem
     {
         $this->repository = new UserRepository();
     }
-
-    public function initializeUserRegistration()
-    {
-        if (!isset($_SESSION)) {
-            session_start();
-        }
-
-        if (!isset($_SESSION["registeredUsers"])) {
-            $initUser = new User();
-            $_SESSION["registeredUsers"] = [$initUser];
-        }
-    }
-
+ 
     public function saveUserAsRegistered(User $user)
     {
         if (!$this->isRegisteredUser($user->getUsername())) {
@@ -50,8 +38,6 @@ class UserManagementSystem
         }
     }
 
-    // this might not be optimal, has we have to iterate over each registered user
-    // but in actual code, this would be done in an SQL anyway and therefore this is only a quick and dirty replacement
     public function isRegisteredUserWithCorrectPassword($usernameToCheck, $passwordToCheck)
     {
         $hashedPasswordFromDb = $this->repository->getHashedPasswordForUsername($usernameToCheck);

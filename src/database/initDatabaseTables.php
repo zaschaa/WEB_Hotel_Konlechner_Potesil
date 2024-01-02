@@ -10,12 +10,12 @@ if (
     return;
 }
 
-// Create connection
-$connection = new mysqli($dbHost, $dbUsername, $dbPassword, $dbName);
 // Check connection
 if ($connection->connect_error) {
     die("Connection failed: " . $connection->connect_error);
 }
+
+$hashedAdminPW = '$2y$10$EDDkpyGs3izycQrfP/XFZela9Ua8HMqpNguFNpJt7wy3AgAlhgZj6';
 
 // sql to create table
 $tableSqlList = [
@@ -33,6 +33,107 @@ $tableSqlList = [
     )
     COLLATE='utf8mb4_general_ci'
     ENGINE=InnoDB;"
+    ,
+    "INSERT INTO `users` (`id`, `username`, `password`, `sex`, `firstname`, `lastname`, `email`, `is_admin`) 
+    VALUES 
+    (1, 'maxim', '$2y$10$5gbnNwXMXJgVNjgB8M14beW.QfGgiMl7/8MvrNJePhuA.WEdPwozS', 'Herr', 'Max', 'Meier', 'max@meier.at', 0),
+    (2, 'admin', '$hashedAdminPW', 'Herr', 'Admin', 'LeBoss', 'chef.admin@mailmail.com', 1);"
+    ,
+    "CREATE TABLE `bed_types` (
+        `id` INT(11) NOT NULL,
+        `bed_type_name` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
+        `width_cm` INT(11) NOT NULL,
+        `length_cm` INT(11) NOT NULL,
+        PRIMARY KEY (`id`) USING BTREE
+    )
+    COLLATE='utf8mb4_general_ci'
+    ENGINE=InnoDB;"
+    ,
+    "INSERT INTO `bed_types` (`id`, `bed_type_name`, `width_cm`, `length_cm`) 
+    VALUES 
+    (1, 'comfort', 140, 200),
+    (2, 'queen-size', 160, 200),
+    (3, 'king-size', 200, 220);"
+    ,
+    "CREATE TABLE `room_types` (
+        `id` INT(11) NOT NULL,
+        `room_type_name` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
+        `room_size_range_square_meters` VARCHAR(10) NOT NULL COLLATE 'utf8mb4_general_ci',
+        `bed_type` INT(11) NOT NULL,
+        `has_minibar` TINYINT(1) NOT NULL,
+        `price_per_person_per_night_eur` FLOAT NOT NULL,
+        PRIMARY KEY (`id`) USING BTREE,
+        INDEX `FK_bed_type` (`bed_type`) USING BTREE,
+        CONSTRAINT `FK_bed_type` FOREIGN KEY (`bed_type`) REFERENCES `bed_types` (`id`) ON UPDATE RESTRICT ON DELETE RESTRICT
+    )
+    COLLATE='utf8mb4_general_ci'
+    ENGINE=InnoDB;"
+    ,
+    "INSERT INTO `room_types` (`id`, `room_type_name`, `room_size_range_square_meters`, `bed_type`, `has_minibar`, `price_per_person_per_night_eur`) 
+    VALUES 
+    (1, 'Deluxe Zimmer', '27-39', 1, 0, 300),
+    (2, 'Junior Suite', '40-55', 2, 1, 550),
+    (3, 'Signature Suite', '50-65', 3, 1, 800),
+    (4, 'Grand Suite', '> 95', 3, 1, 1400);"
+    ,
+    "CREATE TABLE `rooms` (
+        `id` INT(11) NOT NULL AUTO_INCREMENT,
+        `room_number` INT(11) NOT NULL,
+        `room_type` INT(11) NOT NULL,
+        `capacity` INT(11) NOT NULL,
+        PRIMARY KEY (`id`) USING BTREE,
+        INDEX `FK_room_type` (`room_type`) USING BTREE,
+        CONSTRAINT `FK_room_type` FOREIGN KEY (`room_type`) REFERENCES `room_types` (`id`) ON UPDATE RESTRICT ON DELETE RESTRICT
+    )
+    COLLATE='utf8mb4_general_ci'
+    ENGINE=InnoDB;"
+    ,
+    "INSERT INTO `rooms` (`id`, `room_number`, `room_type`, `capacity`)
+    VALUES 
+    (1, 101, 1, 1), (2, 102, 1, 2), (3, 103, 1, 2), (4, 104, 1, 2), (5, 105, 1, 2), (6, 106, 1, 3), (7, 107, 1, 3), (8, 108, 2, 2), (9, 109, 2, 3), (10, 110, 2, 3), (11, 111, 2, 4), (12, 112, 3, 3), (13, 113, 3, 4),
+    (14, 201, 1, 1), (15, 202, 1, 2), (16, 203, 1, 2), (17, 204, 1, 2), (18, 205, 1, 2), (19, 206, 1, 3), (20, 207, 1, 3), (21, 208, 2, 2), (22, 209, 2, 3), (23, 210, 2, 3), (24, 211, 2, 4), (25, 212, 3, 2), (26, 213, 3, 3),
+    (27, 301, 1, 1), (28, 302, 1, 2), (29, 303, 1, 2), (30, 304, 1, 2), (31, 305, 1, 2), (32, 306, 1, 3), (33, 307, 1, 3), (34, 308, 2, 2), (35, 309, 2, 3), (36, 310, 2, 3), (37, 311, 2, 4), (38, 312, 3, 3), (39, 313, 3, 5),
+    (40, 401, 4, 3), (41, 402, 4, 3), (42, 403, 4, 4), (43, 404, 4, 6);"
+    ,
+    "CREATE TABLE `reservations` (
+        `id` INT(11) NOT NULL AUTO_INCREMENT,
+        `user_id` INT(11) NOT NULL,
+        `room_id` INT(11) NOT NULL,
+        `start_date` DATE NOT NULL,
+        `end_date` DATE NOT NULL,
+        `number_of_persons` INT(11) NOT NULL,
+        `has_breakfast` TINYINT(1) NOT NULL,
+        `number_of_parking_lots` INT(11) NOT NULL,
+        `number_of_pets` INT(11) NOT NULL,
+        `comment` TEXT NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+        `state` ENUM('new','confirmed','cancelled') NOT NULL DEFAULT 'new' COLLATE 'utf8mb4_general_ci',
+        `created_at` TIMESTAMP NOT NULL DEFAULT current_timestamp(),
+        PRIMARY KEY (`id`) USING BTREE,
+        INDEX `FK_user_id` (`user_id`) USING BTREE,
+        INDEX `FK_room_id` (`room_id`) USING BTREE,
+        CONSTRAINT `FK_room_id` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id`) ON UPDATE RESTRICT ON DELETE RESTRICT,
+        CONSTRAINT `FK_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT `chk_end_date` CHECK (`end_date` >= `start_date`)
+    )
+    COLLATE='utf8mb4_general_ci'
+    ENGINE=InnoDB;"
+    ,
+    "CREATE TABLE `charged_options` (
+        `id` INT(11) NOT NULL AUTO_INCREMENT,
+        `option_name` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
+        `price_per_unit_eur` FLOAT NOT NULL,
+        PRIMARY KEY (`id`) USING BTREE
+    )
+    COLLATE='utf8mb4_general_ci'
+    ENGINE=InnoDB;"
+    ,
+    "INSERT INTO `charged_options` (`id`, `option_name`, `price_per_unit_eur`) 
+    VALUES 
+    (1, 'beer_from_minibar_0.33l', 8),
+    (2, 'pet', 50),
+    (3, 'breakfast', 22.4),
+    (4, 'parking lot', 75);"
+    
 ];
 
 foreach ($tableSqlList as $tableSql) {
@@ -50,3 +151,5 @@ foreach ($tableSqlList as $tableSql) {
             . '");</script>';
     }
 }
+
+?>
