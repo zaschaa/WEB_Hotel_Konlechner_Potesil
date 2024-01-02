@@ -7,7 +7,6 @@ require_once('../UserInputValidator.php');
 
 $ums = new UserManagementSystem();
 $inputValidator = new \userManagement\UserInputValidator($ums);
-$ums->initializeUserRegistration();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 

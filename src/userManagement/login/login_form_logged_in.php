@@ -9,7 +9,6 @@ require_once('../UserInputValidator.php');
 
 $ums = new UserManagementSystem();
 $inputValidator = new UserInputValidator($ums);
-$ums->initializeUserRegistration();
 
 $currentUser = $_SESSION["currentUser"];
 
