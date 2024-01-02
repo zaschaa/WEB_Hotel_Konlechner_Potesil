@@ -58,6 +58,7 @@ $tableSqlList = [
     "CREATE TABLE `room_types` (
         `id` INT(11) NOT NULL,
         `room_type_name` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
+        `pic_filepath_name` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
         `room_size_range_square_meters` VARCHAR(10) NOT NULL COLLATE 'utf8mb4_general_ci',
         `bed_type` INT(11) NOT NULL,
         `has_minibar` TINYINT(1) NOT NULL,
@@ -69,12 +70,12 @@ $tableSqlList = [
     COLLATE='utf8mb4_general_ci'
     ENGINE=InnoDB;"
     ,
-    "INSERT INTO `room_types` (`id`, `room_type_name`, `room_size_range_square_meters`, `bed_type`, `has_minibar`, `price_per_person_per_night_eur`) 
+    "INSERT INTO `room_types` (`id`, `room_type_name`, `pic_filepath_name`, `room_size_range_square_meters`, `bed_type`, `has_minibar`, `price_per_person_per_night_eur`) 
     VALUES 
-    (1, 'Deluxe Zimmer', '27-39', 1, 0, 300),
-    (2, 'Junior Suite', '40-55', 2, 1, 550),
-    (3, 'Signature Suite', '50-65', 3, 1, 800),
-    (4, 'Grand Suite', '> 95', 3, 1, 1400);"
+    (1, 'Deluxe Zimmer', 'deluxe_room', '27-39', 1, 0, 300),
+    (2, 'Junior Suite', 'junior_suite', '40-55', 2, 1, 550),
+    (3, 'Signature Suite', 'signature_suite', '50-65', 3, 1, 800),
+    (4, 'Grand Suite', 'grand_suite', '> 95', 3, 1, 1400);"
     ,
     "CREATE TABLE `rooms` (
         `id` INT(11) NOT NULL AUTO_INCREMENT,

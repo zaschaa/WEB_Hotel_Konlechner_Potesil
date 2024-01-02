@@ -36,51 +36,53 @@
 
     <?php
         if(isset($_POST["roomType"])) {
-            $roomType = htmlspecialchars($_POST["roomType"]);
-            $roomSize;
-            $roomPrize;
+            require '../../database/dbaccess.php';
+
+            $roomType = htmlspecialchars($_POST["roomType"]);           
             
             echo "<h2>$roomType</h2>";
 
-            switch ($roomType) {
-                case "Deluxe Zimmer":
-                    $roomType = "deluxe_room";
-                    $roomSize = "27-39";
-                    $roomPrize = 300;
-                    break;
-                case "Junior Suite":
-                    $roomType = "junior_suite";
-                    $roomSize = "40-55";
-                    $roomPrize = 550;
-                    break;
-                case "Signature Suite":
-                    $roomType = "signature_suite";
-                    $roomSize = "50-65";
-                    $roomPrize = 800;
-                    break;
-                case "Grand Suite":
-                    $roomType = "grand_suite";
-                    $roomSize = "ab 95";
-                    $roomPrize = 1400;
-                    break;
+            $sqlSelect = 
+            "SELECT pic_filepath_name, room_size_range_square_meters, bed_type_name, width_cm, length_cm, has_minibar, price_per_person_per_night_eur
+             FROM room_types AS RT
+             LEFT JOIN bed_types AS BT
+             ON RT.bed_type = BT.id
+             WHERE room_type_name = ?;"; # ? --> placeholder in prepared statement !!! Avoid SQL injection !!!
+
+            $statement = $connection->prepare($sqlSelect);
+            $statement->bind_param("s", $roomType); # character "s" is used due to placeholders of type String
+            $statement->execute();
+            $statement->bind_result($picFilepathName, $roomSize, $bedType, $bedWidth, $bedLength, $roomHasMinibar, $roomPrice);
+            $statement->fetch();
+            $statement->close();        
+            $connection->close();
+
+            if($roomHasMinibar===1) {
+                $roomHasMinibar = 'Ja';
+            } else {
+                $roomHasMinibar = 'Nein';
             }
 
             echo "<p>Größe: $roomSize m²</p>";
-            echo "<p>Preis: ab $roomPrize € p. P. u. Nacht</p>";
+            echo "<p>Bett: $bedType ($bedWidth x $bedLength cm)</p>";
+            echo "<p>Minibar (alkoholfreie Getränke sind kostenlos): $roomHasMinibar</p>";
+            echo "<p>Preis: ab $roomPrice € pro Pers. u. Nacht</p>";
+            
         }
     ?>
 
-    <?php if(isset($roomType)) : ?>
+    <?php if(isset($roomType)) : ?>        
+
         <div id="carouselExample" class="carousel slide mb-3">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                <img src="<?php echo "../../images/rooms/" . $roomType . "_01.jpg"; ?>" class="d-block w-100" alt="Alt-Text">
+                <img src="<?php echo "../../images/rooms/" . $picFilepathName . "_01.jpg"; ?>" class="d-block w-100" alt="Alt-Text">
                 </div>
                 <div class="carousel-item">
-                <img src="<?php echo "../../images/rooms/" . $roomType . "_02.jpg"; ?>" class="d-block w-100" alt="Alt-Text">
+                <img src="<?php echo "../../images/rooms/" . $picFilepathName . "_02.jpg"; ?>" class="d-block w-100" alt="Alt-Text">
                 </div>
                 <div class="carousel-item">
-                <img src="<?php echo "../../images/rooms/" . $roomType . "_03.jpg"; ?>" class="d-block w-100" alt="Alt-Text">
+                <img src="<?php echo "../../images/rooms/" . $picFilepathName . "_03.jpg"; ?>" class="d-block w-100" alt="Alt-Text">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
