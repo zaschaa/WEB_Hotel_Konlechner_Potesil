@@ -1,8 +1,10 @@
-<?php    
+<?php
+    require_once('../../userManagement/User.php');
     // Start or continue a session
-    session_start();     
-?>
+    session_start();
 
+    include '../../reservationManagement/reservation_logic.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +16,7 @@
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>
 
-    <title>Coupons</title>
+    <title>Reservierung</title>
     <link rel="stylesheet" href="../../styles.css"/>
 </head>
 <body class="bgColor bg-gradient">
@@ -26,7 +28,20 @@
 
 <main>
 
-    <img src="../../images/construction_1.jpeg" alt="Under Construction...">
+    <div class="container justify-content-left">
+
+        <h1>Reservierung</h1>
+
+        <?php 
+            if (!isset($_SESSION["currentUser"])) {
+                echo "Um ein Zimmer reservieren zu können, müssen Sie sich bitte einloggen!";
+                #include './login_form_no_active_user.php';
+            } else {
+                include '../../reservationManagement/reservation_form.php';
+            }            
+        ?>
+   
+    </div>   
 
 </main>
 

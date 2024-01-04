@@ -12,7 +12,6 @@ $inputValidator = new UserInputValidator($ums);
 
 $currentUser = $_SESSION["currentUser"];
 
-$username = $_SESSION["currentUser"]->getUsername();
 $isUpdateInputValid = false;
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -88,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         ?>
     </h1>
 
-    <form method="POST" class="mt-2">
+    <form method="POST" class="mt-2 mb-3">
         <div class="mt-1">
             <button class="btn btn-danger" type="submit" name="submit" id="submit" value="logout">
                 Logout
@@ -116,12 +115,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         <div class="mb-3">
             <label for="name" class="form-label">Vorname</label>
-            <input type="text" class="form-control" name="name" id="name"
+            <input type="text" class="form-control" name="name" id="name" required
                     value=<?php if(isset($enteredName)) { echo $enteredName;} else {echo $currentUser->getName();} ?>>
         </div>
         <div class="mb-3">
             <label for="lastname" class="form-label">Nachname</label>
-            <input type="text" class="form-control" name="lastname" id="lastname"
+            <input type="text" class="form-control" name="lastname" id="lastname" required
                     value=<?php if(isset($enteredLastname)) { echo $enteredLastname;} else {echo $currentUser->getLastname();} ?>>
         </div>
         <div class="mb-3">

@@ -1,3 +1,9 @@
+<?php
+    require_once('../../userManagement/User.php');
+    // Start or continue a session
+    session_start();     
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,10 +41,12 @@
         </div>
 
     <?php
+
         if(isset($_POST["roomType"])) {
             require '../../database/dbaccess.php';
-
+            
             $roomType = htmlspecialchars($_POST["roomType"]);           
+            $_SESSION["roomType"]=$roomType;
             
             echo "<h2>$roomType</h2>";
 
@@ -67,6 +75,8 @@
             echo "<p>Bett: $bedType ($bedWidth x $bedLength cm)</p>";
             echo "<p>Minibar (alkoholfreie Getränke sind kostenlos): $roomHasMinibar</p>";
             echo "<p>Preis: ab $roomPrice € pro Pers. u. Nacht</p>";
+
+            echo "<p><a class=\"text-decoration-underline\" href=\"./roomReservation.php\">Zur Reservierung</a></p>";
             
         }
     ?>

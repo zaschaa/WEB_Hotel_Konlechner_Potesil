@@ -1,3 +1,9 @@
+<?php    
+    require_once('../../userManagement/User.php');
+    // Start or continue a session
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -1,5 +1,8 @@
 <?php
-include './login_logic.php';
+    require_once('../User.php');
+    session_start(); 
+    
+    include './login_logic.php';
 ?>
 
 <!DOCTYPE html>
@@ -26,11 +29,15 @@ include './login_logic.php';
 </header>
 
 <main>
+    <?php
+       
+    ?>
+
     <div class="container justify-content-left">
         <?php 
-            if (!isset($_SESSION["currentUser"])) {
+            if (!isset($_SESSION["currentUser"])) {                
                 include './login_form_no_active_user.php';
-            } else {
+            } else {                               
                 include './login_form_logged_in.php';
             }            
         ?>

@@ -1,3 +1,8 @@
+<?php    
+    // Start or continue a session
+    session_start();     
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -38,7 +43,7 @@
                     </dd>
                         
                     <dt><b>Gibt es im Hotel ein Restaurant und wann ist dieses geöffnet?</b></dt>
-                    <dd>- Ja, das Hotel verfügt über ein eigenes Restaurant mit Bar. Warme Küche wird tägl. von 11 - 22 Uhr angeboten. Kalte Snacks und Getränke erhalten Sie tägl. von 9 - 24 Uhr. </dd>
+                    <dd>- Ja, das Hotel verfügt über ein eigenes Restaurant mit Bar. Warme Küche wird tägl. von 11 - 22 Uhr angeboten. Frühstück gibt es von 6 - 11 Uhr. <br> Außerdem erhalten Sie kalte Snacks und Getränke tägl. von 9 - 24 Uhr. </dd>
                 </dl>   
             </div>    
         </main>

@@ -1,3 +1,8 @@
+<?php    
+    // Start or continue a session
+    session_start();     
+?>
+
 <!DOCTYPE html>
 <html>
     <head>

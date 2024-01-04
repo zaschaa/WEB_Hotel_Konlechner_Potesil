@@ -60,18 +60,25 @@ class UserRepository
 
     public function addUserToDatabase(User $user)
     {
+        $userName = $user->getUsername();
+        $password = password_hash($user->getPassword(), PASSWORD_BCRYPT);
+        $sex = $user->getSex();
+        $firstname = $user->getName();
+        $lastname = $user->getLastname();
+        $email = $user->getEmail();
+        
         require '../../database/dbaccess.php';
         $sqlInsert = "INSERT INTO users (username, password, sex, firstname, lastname, email) VALUES (?,?,?,?,?,?)";
-
+        
         $statement = $connection->prepare($sqlInsert);
         $statement->bind_param(
-            "ssssss",
-            $user->getUsername(),
-            password_hash($user->getPassword(), PASSWORD_BCRYPT),
-            $user->getSex(),
-            $user->getName(),
-            $user->getLastname(),
-            $user->getEmail()
+            "ssssss", 
+            $userName,
+            $password,
+            $sex,
+            $firstname,
+            $lastname,
+            $email
         );
 
         $statement->execute();

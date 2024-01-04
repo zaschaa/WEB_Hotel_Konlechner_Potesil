@@ -1,9 +1,3 @@
-<?php
-if (!isset($_SESSION)) {
-    session_start();
-}
-?>
-
 <nav class="navbar fixed-top navbar-expand-lg navBarColor bg-gradient">
     <div class="container justify-content-left" id="nav-mother-container">
         <div class="navbar d-flex flex-column navbar-brand">
@@ -38,6 +32,9 @@ if (!isset($_SESSION)) {
                 </li>
                 <li class="nav-item px-2">
                     <a href="../../content/information/rooms.php">Zimmer</a>
+                </li>
+                <li class="nav-item px-2">
+                    <a href="../../content/information/roomReservation.php">Reservierung</a>
                 </li>
                 <li class="nav-item px-2">
                     <a href="../../content/information/coupons.php">Gutscheine</a>

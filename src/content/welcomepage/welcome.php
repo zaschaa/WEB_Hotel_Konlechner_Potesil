@@ -1,4 +1,7 @@
 <?php
+    // Start or continue a session
+    session_start();
+
     require_once "../../database/initDatabaseTables.php";
 ?>
 

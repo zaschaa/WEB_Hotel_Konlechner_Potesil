@@ -1,6 +1,9 @@
 <?php
-include './registration_logic.php';
+    // Start or continue a session
+    session_start();
+    include './registration_logic.php';
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +30,7 @@ include './registration_logic.php';
         <h1>Benutzer-Registrierung</h1>
 
         <?php if($isValidRegistration === false) : ?>
-            <form class="col-3" method="POST">
+            <form class="col-3 mb-3" method="POST">
                 <div class="mb-3">
                     <label for="sex" class="form-label">Anrede</label>
                     <select name="sex" id="sex" class="form-select">
@@ -44,11 +47,11 @@ include './registration_logic.php';
                 </div>
                 <div class="mb-3">
                     <label for="name" class="form-label">Vorname</label>
-                    <input type="text" class="form-control" name="name" id="name" <?php if(isset($enteredName)) { echo "value=" . $enteredName;} ?>>
+                    <input type="text" class="form-control" name="name" id="name" <?php if(isset($enteredName)) { echo "value=" . $enteredName;} ?> required>
                 </div>
                 <div class="mb-3">
                     <label for="lastname" class="form-label">Nachname</label>
-                    <input type="text" class="form-control" name="lastname" id="lastname" <?php if(isset($enteredLastname)) { echo "value=" . $enteredLastname;} ?>>
+                    <input type="text" class="form-control" name="lastname" id="lastname" <?php if(isset($enteredLastname)) { echo "value=" . $enteredLastname;} ?> required>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
