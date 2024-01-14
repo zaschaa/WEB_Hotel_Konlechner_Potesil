@@ -22,7 +22,7 @@ class UserRepository
     private function fetchAndBindResult($statement): User
     {
         $statement->execute();
-        $statement->bind_result($id, $uName, $password, $sex, $fname, $lname, $email, $isAdmin);
+        $statement->bind_result($id, $uName, $password, $sex, $fname, $lname, $email, $isAdmin, $isInactive);
         $statement->fetch();
 
         $statement->close();
@@ -35,15 +35,16 @@ class UserRepository
             $fname,
             $lname,
             $email,
-            $isAdmin
+            $isAdmin,
+            $isInactive
         );
     }
 
-    public function getHashedPasswordForUsername($usernameToCheck): string
+    public function getHashedPasswordForUsernameAndActiveUser($usernameToCheck)
     {
         require '../../database/dbaccess.php';
         # Prepared statement
-        $sqlInsert = "SELECT password FROM users WHERE username = ?";
+        $sqlInsert = "SELECT password FROM users WHERE username = ? and is_user_inactive = 0";
 
         $statement = $connection->prepare($sqlInsert);
         $statement->bind_param("s", $usernameToCheck);
@@ -115,19 +116,22 @@ class UserRepository
         $firstname = $user->getName();
         $lastname = $user->getLastname();
         $email = $user->getEmail();
+        $email = $user->getEmail();
+        $userInactive = (integer) $user->isInactive();
 
         require '../../database/dbaccess.php';
         $sqlInsert = "UPDATE users SET 
-                 sex = ?, firstname = ?, lastname = ?, email = ?
+                 sex = ?, firstname = ?, lastname = ?, email = ?, is_user_inactive = ?
                  WHERE username = ?";
 
         $statement = $connection->prepare($sqlInsert);
         $statement->bind_param(
-            "sssss",
+            "ssssis",
             $sex,
             $firstname,
             $lastname,
             $email,
+            $userInactive,
             $userName
         );
 
@@ -186,7 +190,7 @@ class UserRepository
     private function fetchAllAndBindResult(mixed $statement)
     {
         $statement->execute();
-        $statement->bind_result($id, $uName, $password, $sex, $fname, $lname, $email, $isAdmin);
+        $statement->bind_result($id, $uName, $password, $sex, $fname, $lname, $email, $isAdmin, $isInactive);
 
         $allUsers = [];
         while($statement->fetch()) {
@@ -198,7 +202,8 @@ class UserRepository
                 $fname,
                 $lname,
                 $email,
-                $isAdmin
+                $isAdmin,
+                $isInactive
             );
             $allUsers[] = $fetched;
         };

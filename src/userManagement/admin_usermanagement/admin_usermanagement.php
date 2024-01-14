@@ -143,9 +143,16 @@ $allUsers = $ums->getAllUsers();
                                                              echo "text-danger";
                                                          } ?>"><?php if (isset($emailErrMessage)) {
                                                             echo $emailErrMessage;
-                                                        } else {
-                                                            echo "Wir werden Ihre E-Mailadresse niemals an Dritte weitergeben!";
                                                         } ?></div>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="isActive"
+                                                        <?php if (!$user->isInactive()) echo "checked" ?>
+                                                           name="activeUser" id="activeUser">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        Aktiver Nutzer
+                                                    </label>
                                                 </div>
 
                                             </div>
@@ -254,7 +261,7 @@ $allUsers = $ums->getAllUsers();
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="changeSuccessful">Passwortänderung
+                                            <h1 class="modal-title fs-5" id="changeSuccessful">Änderungen
                                                 erfolgreich!</h1>
                                         </div>
                                         <div class="modal-footer">
@@ -294,6 +301,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $enteredName = $inputValidator->prepareInput($_POST["name"]);
         $enteredLastname = $inputValidator->prepareInput($_POST["lastname"]);
         $enteredEmail = $inputValidator->prepareInput($_POST["email"]);
+        $userActiveCheckBox = isset($_POST["activeUser"]);
 
         if ($enteredEmail != $userToUpdate->getEmail()) {
             $isValidEmail = $inputValidator->isValidEmail($enteredEmail);
@@ -303,17 +311,26 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
         if ($isValidEmail) {
-            $updatedUser = new User();
-            $updatedUser->setAllValues(
+            $updatedUser = User::of(
+                $userToUpdate->getUserId(),
                 $userToUpdate->getUsername(),
                 $userToUpdate->getPassword(),
                 $enteredSex,
                 $enteredName,
                 $enteredLastname,
-                $enteredEmail
+                $enteredEmail,
+                $userToUpdate->isAdmin(),
+                !$userActiveCheckBox
             );
 
             $ums->updateUser($updatedUser);
+            $allUsers = $ums->getAllUsers();
+            // show successful modal
+            echo "<script type='text/javascript'>
+                    $(document).ready(function(){
+                    $('#changeSuccessfulModal').modal('show');
+                    });
+                    </script>";
 
         } else {
             // keep showing modal

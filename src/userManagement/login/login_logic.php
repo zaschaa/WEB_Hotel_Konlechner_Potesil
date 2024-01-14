@@ -21,6 +21,7 @@ use userManagement\UserManagementSystem;
 
                 $loggedInUser = $ums->getUserByUsername($enteredUsername);
                 $_SESSION["currentUser"] = $loggedInUser;
+                $_SESSION["currentUserIsAdminUser"] = $loggedInUser->isAdmin();
 
                 setcookie("LOGON_USER", $_SESSION["currentUser"]->getUsername(), time()+31557500, '/');
 

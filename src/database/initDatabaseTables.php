@@ -28,6 +28,7 @@ $tableSqlList = [
         `lastname` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
         `email` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
         `is_admin` TINYINT(1) NOT NULL DEFAULT '0',
+        `is_user_inactive` TINYINT(1) NOT NULL DEFAULT '0',
         PRIMARY KEY (`id`) USING BTREE,
         UNIQUE INDEX `idx_username` (`username`) USING BTREE
     )

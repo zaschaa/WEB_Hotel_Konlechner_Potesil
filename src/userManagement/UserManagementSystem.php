@@ -33,9 +33,9 @@ class UserManagementSystem
 
     public function isRegisteredUserWithCorrectPassword($usernameToCheck, $passwordToCheck)
     {
-        $hashedPasswordFromDb = $this->repository->getHashedPasswordForUsername($usernameToCheck);
+        $hashedPasswordFromDb = $this->repository->getHashedPasswordForUsernameAndActiveUser($usernameToCheck);
 
-        if (password_verify($passwordToCheck, $hashedPasswordFromDb)) {
+        if (!is_null($passwordToCheck) && password_verify($passwordToCheck, $hashedPasswordFromDb)) {
             return true;
         }
 
