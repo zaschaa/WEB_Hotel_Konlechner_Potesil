@@ -154,6 +154,123 @@ class ReservationManagementSystem
         return $roomId;        
     }
 
+    public function addReservationToDatabase(Reservation $res)
+    {
+        require '../../database/dbaccess.php';            
+        
+        $sqlInsert = 
+        "INSERT INTO `reservations` (`user_id`, `room_id`, `start_date`, `end_date`, `number_of_persons`, `has_breakfast`, `number_of_parking_lots`, `number_of_pets`, `comment`) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);"; # ? --> placeholder in prepared statement !!! Avoid SQL injection !!!        
+
+        $userId = $res->getUserId();
+        $roomId = $res->getRoomId();        
+        $startDate = $res->getStartDateStringISO();
+        $endDate = $res->getEndDateStringISO();
+        $numOfPers = $res->getNumOfPersons();
+        $hasBreakfast = $res->hasBreakfast();
+        $numOfParkingLots = $res->getNumOfParkingLots();
+        $numOfPets = $res->getNumOfPets();
+        $comment = $res->getComment();
+
+        $statement = $connection->prepare($sqlInsert);
+        $statement->bind_param("iissiiiis", $userId, $roomId, $startDate, $endDate, $numOfPers, $hasBreakfast, $numOfParkingLots, $numOfPets, $comment);
+        $result = $statement->execute();
+        #$statement->bind_result($roomId);
+        #$result = $statement->fetch();       
+        $statement->close();        
+        $connection->close();
+
+        return $result;        
+    }
+
+    public function printUsersReservations(userManagement\User $user)
+    {
+        require '../../database/dbaccess.php';            
+        
+        $sqlSelect = 
+        "SELECT RE.id, U.firstname, U.lastname, RE.start_date, RE.end_date, RE.number_of_persons, RT.room_type_name, RO.room_number, RE.number_of_parking_lots, RE.number_of_pets, 
+                RE.comment, RE.state, RE.created_at
+         FROM reservations AS RE
+         LEFT JOIN rooms AS RO
+         ON RE.room_id = RO.id
+         LEFT JOIN room_types AS RT
+         ON RO.room_type = RT.id
+         LEFT JOIN users AS U
+         ON RE.user_id = U.id
+         WHERE RE.user_id = ?;"; # ? --> placeholder in prepared statement !!! Avoid SQL injection !!!        
+
+        $userId = $user->getUserId();
+       
+        $statement = $connection->prepare($sqlSelect);
+        $statement->bind_param("i", $userId);
+        $statement->execute();
+
+        $statement->bind_result($id, $firstName, $lastName, $startDate, $endDate, $numOfPers, $roomTypeName, $roomNumber, $numOfParkingLots, $numOfPets, $comment, $state, $createdAt);
+        
+        echo "<table class=\"table mb-2\">";    
+            # print header           
+            echo "<tr>"; 
+                echo "<th class=\"resOVth\">Reservierungs-Nr.</th>";
+                echo "<th class=\"resOVth\">Anreisetag</th>";
+                echo "<th class=\"resOVth\">Abreisetag</th>";                                                            
+            echo "</tr>";
+
+            echo "<tr>";           
+                echo "<th class=\"resOVth\"></th>";
+                echo "<th class=\"resOVth\">Anzahl Personen</th>";                        
+                echo "<th class=\"resOVth\">Zimmer-Kategorie</th>";                                                
+            echo "</tr>";
+
+            echo "<tr>";           
+                echo "<th class=\"resOVth\"></th>";  
+                echo "<th class=\"resOVth\">Erstelldatum</th>";
+                echo "<th class=\"resOVth\">Status</th>";                
+            echo "</tr>";            
+
+        while($statement->fetch()) { # fetch() goes on with next row of query result
+            echo "<tbody class=\"table-group-divider\">";
+                echo "<tr>";
+                    echo "<td class=\"resOVth\">$id</td>";
+                    $startDate = date("d.m.Y", date_timestamp_get(date_create($startDate)));
+                    echo "<td class=\"resOVth\">$startDate</td>";
+                    $endDate = date("d.m.Y", date_timestamp_get(date_create($endDate)));
+                    echo "<td class=\"resOVth\">$endDate</td>";
+                                            
+                echo "</tr>";
+
+                echo "<tr>";
+                    echo "<td class=\"resOVth\"></td>";
+                    echo "<td class=\"resOVth\">$numOfPers</td>";                
+                    echo "<td class=\"resOVth\">$roomTypeName</td>";                                       
+                echo "</tr>";
+
+                echo "<tr>";
+                    echo "<td class=\"resOVth\"></td>";
+                    echo "<td class=\"resOVth\">$createdAt</td>";  
+                    switch ($state) {
+                        case "new":
+                            $state = "neu (=unbestätigt)";
+                        break;
+                        case "confirmed":
+                            $state = "bestätigt";
+                        break;
+                        case "cancelled":
+                            $state = "storniert";
+                        break;
+                        default:                    
+                    }
+                    echo "<td class=\"resOVth\">$state</td>";                                   
+                echo "</tr>";
+            echo "</tbody>";
+        }
+
+        echo "</table>";  
+    
+        $statement->close();        
+        $connection->close();
+    }
+
 
   
 }
+

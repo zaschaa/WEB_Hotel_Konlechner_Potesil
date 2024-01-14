@@ -73,11 +73,15 @@
 
         if (isset($_POST["confirmRes"])) {
 
-            #to-do: save reservation in database
+            #save reservation in database
+
+            if(isset($_SESSION["currentReservation"]) && $rms->addReservationToDatabase($_SESSION["currentReservation"])) {
 
             unset($_SESSION["currentReservation"]);
             unset($_SESSION["availableRoomTypes"]);
             unset($_SESSION["roomType"]);
+
+            }
         }
     }
 
