@@ -95,6 +95,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
     </form>
 
+    <div class="mt-1">
+        <button class="btn btn-primary" onclick="document.location='../../content/reservation/myReservations.php'">Meine Reservierungen</button> 
+    </div>
+
     <form class="col-3" method="POST">
 
         <div class="mb-3">

@@ -27,7 +27,10 @@
 </header>
 
 <main>
+    
     <div class="container justify-content-left">
+
+        <h1 class="mb-4">Zimmer</h1>
 
         <div class="dropdown mb-3">
             <button class="btn btn-outline-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -76,7 +79,7 @@
             echo "<p>Minibar (alkoholfreie Getränke sind kostenlos): $roomHasMinibar</p>";
             echo "<p>Preis: ab $roomPrice € pro Pers. u. Nacht</p>";
 
-            echo "<p><a class=\"text-decoration-underline\" href=\"./roomReservation.php\">Zur Reservierung</a></p>";
+            echo "<p><a class=\"text-decoration-underline\" href=\"../reservation/roomReservation.php\">Zur Reservierung</a></p>";
             
         }
     ?>
@@ -109,31 +112,6 @@
 
     </div>
 
-    <!--
-        <div id="carouselExample" class="carousel slide">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-            <img src="..." class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-            <img src="..." class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-            <img src="..." class="d-block w-100" alt="...">
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-        </div>
-    </div>
-
-    <img src="../../images/construction_2.jpg" alt="Under Construction...">-->
 
 </main>
 

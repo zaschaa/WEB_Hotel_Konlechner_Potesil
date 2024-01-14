@@ -2,56 +2,56 @@
 
 <table class="mb-2">
     <tr>
-        <th class="resOVth">Vorname:</th>
-        <th><?php echo $_SESSION["currentUser"]->getName(); ?></th>            
+        <td class="resOVth">Vorname:</td>
+        <td><?php echo $_SESSION["currentUser"]->getName(); ?></td>            
     </tr>
     <tr>
-        <th class="resOVth">Nachname:</th>
-        <th><?php echo $_SESSION["currentUser"]->getLastname(); ?></th>            
+        <td class="resOVth">Nachname:</td>
+        <td><?php echo $_SESSION["currentUser"]->getLastname(); ?></td>            
     </tr>
     <tr>
-        <th class="resOVth">Zimmer-Kategorie:</th>
-        <th><?php echo $_SESSION["currentReservation"]->getRoomType(); ?></th>            
+        <td class="resOVth">Zimmer-Kategorie:</td>
+        <td><?php echo $_SESSION["currentReservation"]->getRoomType(); ?></td>            
     </tr>
     <tr>
-        <th class="resOVth">Zimmer-Preis:</th>
-        <th><?php echo number_format($rms->getRoomTypeInfo($_SESSION["currentReservation"]->getRoomType())->getPrice(), 2, "," , ".") . " € pro Pers. u. Nacht"; ?></th>            
+        <td class="resOVth">Zimmer-Preis:</td>
+        <td><?php echo number_format($rms->getRoomTypeInfo($_SESSION["currentReservation"]->getRoomType())->getPrice(), 2, "," , ".") . " € pro Pers. u. Nacht"; ?></td>            
     </tr>
     <tr>
-        <th class="resOVth">Anreisetag:</th>
-        <th><?php echo $_SESSION["currentReservation"]->getStartDateStringGerman(); ?></th>            
+        <td class="resOVth">Anreisetag:</td>
+        <td><?php echo $_SESSION["currentReservation"]->getStartDateStringGerman(); ?></td>            
     </tr>
     <tr>
-        <th class="resOVth">Abreisetag:</th>
-        <th><?php echo $_SESSION["currentReservation"]->getEndDateStringGerman(); ?></th>            
+        <td class="resOVth">Abreisetag:</td>
+        <td><?php echo $_SESSION["currentReservation"]->getEndDateStringGerman(); ?></td>            
     </tr>
     <tr>
-        <th class="resOVth">Anzahl Nächte:</th>
-        <th><?php echo $_SESSION["currentReservation"]->getNumOfNights(); ?></th>            
+        <td class="resOVth">Anzahl Nächte:</td>
+        <td><?php echo $_SESSION["currentReservation"]->getNumOfNights(); ?></td>            
     </tr>
     <tr>
-        <th class="resOVth">Anzahl Personen:</th>
-        <th><?php echo $_SESSION["currentReservation"]->getNumOfPersons(); ?></th>            
+        <td class="resOVth">Anzahl Personen:</td>
+        <td><?php echo $_SESSION["currentReservation"]->getNumOfPersons(); ?></td>            
     </tr>
     <tr>
-        <th class="resOVth">Frühstück:</th>
-        <th><?php echo $_SESSION["currentReservation"]->hasBreakfastYesOrNo(); ?></th>            
+        <td class="resOVth">Frühstück:</td>
+        <td><?php echo $_SESSION["currentReservation"]->hasBreakfastYesOrNo(); ?></td>            
     </tr>
     <tr>
-        <th class="resOVth">Anzahl Parkplätze:</th>
-        <th><?php echo $_SESSION["currentReservation"]->getNumOfParkingLots(); ?></th>            
+        <td class="resOVth">Anzahl Parkplätze:</td>
+        <td><?php echo $_SESSION["currentReservation"]->getNumOfParkingLots(); ?></td>            
     </tr>
     <tr>
-        <th class="resOVth">Anzahl Haustiere:</th>
-        <th><?php echo $_SESSION["currentReservation"]->getNumOfPets(); ?></th>            
+        <td class="resOVth">Anzahl Haustiere:</td>
+        <td><?php echo $_SESSION["currentReservation"]->getNumOfPets(); ?></td>            
     </tr>
     <tr>
-        <th class="resOVth">Sonstige Anmerkungen:</th>
-        <th><?php echo $_SESSION["currentReservation"]->getComment(); ?></th>            
+        <td class="resOVth">Sonstige Anmerkungen:</td>
+        <td><?php echo $_SESSION["currentReservation"]->getComment(); ?></td>            
     </tr>
     <tr>
-        <th class="resOVth">Preis Gesamt:</th>
-        <th><?php echo $_SESSION["currentReservation"]->getTotalPrice(); ?> €</th>            
+        <td class="resOVth">Preis Gesamt:</td>
+        <td><?php echo $_SESSION["currentReservation"]->getTotalPrice(); ?> €</td>            
     </tr>            
 </table>
 
