@@ -1,0 +1,11 @@
+li {
+    margin: 1em;
+}
+
+ul {
+    list-style: none;
+}
+
+.userDataContainer {
+    margin-bottom: 2em;
+}

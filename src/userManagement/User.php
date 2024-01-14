@@ -13,6 +13,7 @@ class User
     private $lastname = "LeBoss";
     private $email = "chef.admin@mailmail.com";
     private $isAdmin = true;
+    private $isInactive = false;
 
     public function setAllValues($username, $password, $sex, $name, $lastname, $email)
     {
@@ -25,7 +26,7 @@ class User
         $this->isAdmin = false;
     }
 
-    public static function of($id, $username, $password, $sex, $name, $lastname, $email, $isAdmin): User
+    public static function of($id, $username, $password, $sex, $name, $lastname, $email, $isAdmin, $isInactive): User
     {
         $user = new User();
         $user->id = $id;
@@ -36,6 +37,8 @@ class User
         $user->lastname = $lastname;
         $user->email = $email;
         $user->isAdmin = $isAdmin;
+        $user->isInactive = $isInactive;
+
         return $user;
     }
 
@@ -108,5 +111,10 @@ class User
     public function isAdmin()
     {
         return $this->isAdmin;
+    }
+
+    public function isInactive()
+    {
+        return $this->isInactive;
     }
 }

@@ -25,14 +25,7 @@ class UserManagementSystem
     public function updateUser(User $updatedUser)
     {
         if ($this->isRegisteredUser($updatedUser->getUsername())) {
-            $userToUpdate = $this->getUserByUsername($updatedUser->getUsername());
-
-            $key = array_search($userToUpdate, $_SESSION["registeredUsers"]);
-            if ($key !== false) {
-                unset($_SESSION["registeredUsers"][$key]);
-            }
-
-            $_SESSION["registeredUsers"][] = $updatedUser;
+            $this->repository->updateUserProfileData($updatedUser);
         } else {
             echo "<script>console.log(' User with Username $updatedUser->getUsername() does not exist ' );</script>";
         }
@@ -40,9 +33,9 @@ class UserManagementSystem
 
     public function isRegisteredUserWithCorrectPassword($usernameToCheck, $passwordToCheck)
     {
-        $hashedPasswordFromDb = $this->repository->getHashedPasswordForUsername($usernameToCheck);
+        $hashedPasswordFromDb = $this->repository->getHashedPasswordForUsernameAndActiveUser($usernameToCheck);
 
-        if (password_verify($passwordToCheck, $hashedPasswordFromDb)) {
+        if (!is_null($passwordToCheck) && password_verify($passwordToCheck, $hashedPasswordFromDb)) {
             return true;
         }
 
@@ -52,6 +45,11 @@ class UserManagementSystem
     public function getUserByUsername($usernameToCheck)
     {
         return $this->repository->getUserByUsername($usernameToCheck);
+    }
+
+    public function getAllUsers()
+    {
+        return$this->repository->getAllUsers();
     }
 
     public function isRegisteredUser($usernameToCheck): bool
@@ -66,5 +64,14 @@ class UserManagementSystem
         $count = $this->repository->countUsersByEmail($emailToCheck);
 
         return $count > 0;
+    }
+
+    public function updateUserPassword(string $username, string $newPassword)
+    {
+        if ($this->isRegisteredUser($username)) {
+            $this->repository->updateUserPasswordByUsername($username, $newPassword);
+        } else {
+            echo "<script>console.log(' User with Username $username does not exist ' );</script>";
+        }
     }
 }
