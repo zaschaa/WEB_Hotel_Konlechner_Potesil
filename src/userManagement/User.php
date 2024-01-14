@@ -5,6 +5,7 @@ namespace userManagement;
 class User
 {
 
+    private $id = 1;
     private $username = "admin";
     private $password = "admin";
     private $sex = "Herr";
@@ -24,9 +25,10 @@ class User
         $this->isAdmin = false;
     }
 
-    public static function of($username, $password, $sex, $name, $lastname, $email, $isAdmin): User
+    public static function of($id, $username, $password, $sex, $name, $lastname, $email, $isAdmin): User
     {
         $user = new User();
+        $user->id = $id;
         $user->username = $username;
         $user->password = $password;
         $user->sex = $sex;
@@ -43,11 +45,13 @@ class User
             && $this->password === $passwordToCompare;
     }
 
-    // This method echos name and password of a user.
-    // It exists only for experimentation purposes and should never be used in actual code (duh)
-    public function getUserData()
+
+    /**
+     * @return int
+     */
+    public function getUserId()
     {
-        return 'Name: ' . $this->username . ' Password: ' . $this->password;
+        return $this->id;
     }
 
     /**

@@ -2,7 +2,6 @@
 
 namespace userManagement;
 
-
 class UserRepository
 {
 
@@ -29,6 +28,7 @@ class UserRepository
         $statement->close();
 
         return User::of( # use constructor-like method to create new instance of user
+            $id,    
             $uName,
             $password,
             $sex,

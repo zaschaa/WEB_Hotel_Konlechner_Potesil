@@ -1,5 +1,6 @@
 <?php
     require_once('../../userManagement/User.php');
+    require_once('../../reservationManagement/Reservation.php');
     // Start or continue a session
     session_start();
 
@@ -34,13 +35,29 @@
 
         <?php 
             if (!isset($_SESSION["currentUser"])) {
-                echo "Um ein Zimmer reservieren zu können, müssen Sie sich bitte einloggen!";
-                #include './login_form_no_active_user.php';
+                echo "<p class=\"mb-3\">Um ein Zimmer reservieren zu können, müssen Sie sich bitte einloggen!</p>";                
             } else {
-                include '../../reservationManagement/reservation_form.php';
+                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["goon"]) && $isvalidInput && !isset($_POST["goback"])) {        
+                  
+                    if(count($_SESSION["availableRoomTypes"])===0) {
+                        echo "<p class=\"mb-3\">Zu Ihrer Anfrage stehen leider derzeit keine Zimmer zur Auswahl!</p>";
+                        
+                    } else {
+                        include '../../reservationManagement/reservation_form_2.php';
+                    }                    
+                   
+                } else if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["goon2"]) && !isset($_POST["goback2"])) {
+                    include '../../reservationManagement/reservation_overview.php';
+                } else if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["goback2"])) {
+                    include '../../reservationManagement/reservation_form_2.php';
+                } else if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["confirmRes"])) {
+                    include '../../reservationManagement/reservation_confirmation.php';
+                } else {
+                    include '../../reservationManagement/reservation_form.php';
+                }
             }            
         ?>
-   
+
     </div>   
 
 </main>

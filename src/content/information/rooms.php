@@ -16,6 +16,7 @@
             crossorigin="anonymous"></script>
 
     <title>Zimmer</title>
+
     <link rel="stylesheet" href="../../styles.css"/>
 </head>
 <body class="bgColor bg-gradient">
@@ -43,27 +44,26 @@
     <?php
 
         if(isset($_POST["roomType"])) {
-            require '../../database/dbaccess.php';
+
+            #require '../../database/dbaccess.php';
+            require_once('../../reservationManagement/ReservationManagementSystem.php');
             
+            $rms = new ReservationManagementSystem();
+
             $roomType = htmlspecialchars($_POST["roomType"]);           
-            $_SESSION["roomType"]=$roomType;
+            $_SESSION["roomType"] = $roomType;
             
-            echo "<h2>$roomType</h2>";
+            echo "<h2>$roomType</h2>";       
 
-            $sqlSelect = 
-            "SELECT pic_filepath_name, room_size_range_square_meters, bed_type_name, width_cm, length_cm, has_minibar, price_per_person_per_night_eur
-             FROM room_types AS RT
-             LEFT JOIN bed_types AS BT
-             ON RT.bed_type = BT.id
-             WHERE room_type_name = ?;"; # ? --> placeholder in prepared statement !!! Avoid SQL injection !!!
+            $roomTypeInfo = $rms->getRoomTypeInfo($roomType);
 
-            $statement = $connection->prepare($sqlSelect);
-            $statement->bind_param("s", $roomType); # character "s" is used due to placeholders of type String
-            $statement->execute();
-            $statement->bind_result($picFilepathName, $roomSize, $bedType, $bedWidth, $bedLength, $roomHasMinibar, $roomPrice);
-            $statement->fetch();
-            $statement->close();        
-            $connection->close();
+            $picFilepathName = $roomTypeInfo->getpicFilePathName();
+            $roomSize = $roomTypeInfo->getSize();
+            $bedType = $roomTypeInfo->getBedType();
+            $bedWidth = $roomTypeInfo->getBedWidth();
+            $bedLength = $roomTypeInfo->getBedLength();
+            $roomHasMinibar = $roomTypeInfo->getHasMinibar();
+            $roomPrice = $roomTypeInfo->getPrice();
 
             if($roomHasMinibar===1) {
                 $roomHasMinibar = 'Ja';
