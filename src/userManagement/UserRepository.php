@@ -86,6 +86,56 @@ class UserRepository
         $connection->close();
     }
 
+    public function updateUserPasswordByUsername(String $username, String $newPassword)
+    {
+        $password_hash = password_hash($newPassword, PASSWORD_BCRYPT);
+
+        require '../../database/dbaccess.php';
+        $sqlInsert = "UPDATE users SET 
+                 password = ?
+                 WHERE username = ?";
+
+        $statement = $connection->prepare($sqlInsert);
+        $statement->bind_param(
+            "ss",
+            $password_hash,
+            $username
+        );
+
+        $statement->execute();
+        $statement->close();
+        $connection->close();
+    }
+
+    public function updateUserProfileData(User $user)
+    {
+        $userName = $user->getUsername();
+        $password = password_hash($user->getPassword(), PASSWORD_BCRYPT);
+        $sex = $user->getSex();
+        $firstname = $user->getName();
+        $lastname = $user->getLastname();
+        $email = $user->getEmail();
+
+        require '../../database/dbaccess.php';
+        $sqlInsert = "UPDATE users SET 
+                 sex = ?, firstname = ?, lastname = ?, email = ?
+                 WHERE username = ?";
+
+        $statement = $connection->prepare($sqlInsert);
+        $statement->bind_param(
+            "sssss",
+            $sex,
+            $firstname,
+            $lastname,
+            $email,
+            $userName
+        );
+
+        $statement->execute();
+        $statement->close();
+        $connection->close();
+    }
+
     public function countUsersByUsername($usernameToCheck)
     {
         $sqlInsert = "SELECT COUNT(*) FROM users WHERE username = ?";

@@ -25,14 +25,7 @@ class UserManagementSystem
     public function updateUser(User $updatedUser)
     {
         if ($this->isRegisteredUser($updatedUser->getUsername())) {
-            $userToUpdate = $this->getUserByUsername($updatedUser->getUsername());
-
-            $key = array_search($userToUpdate, $_SESSION["registeredUsers"]);
-            if ($key !== false) {
-                unset($_SESSION["registeredUsers"][$key]);
-            }
-
-            $_SESSION["registeredUsers"][] = $updatedUser;
+            $this->repository->updateUserProfileData($updatedUser);
         } else {
             echo "<script>console.log(' User with Username $updatedUser->getUsername() does not exist ' );</script>";
         }
@@ -66,5 +59,14 @@ class UserManagementSystem
         $count = $this->repository->countUsersByEmail($emailToCheck);
 
         return $count > 0;
+    }
+
+    public function updateUserPassword(string $username, string $newPassword)
+    {
+        if ($this->isRegisteredUser($username)) {
+            $this->repository->updateUserPasswordByUsername($username, $newPassword);
+        } else {
+            echo "<script>console.log(' User with Username $username does not exist ' );</script>";
+        }
     }
 }
