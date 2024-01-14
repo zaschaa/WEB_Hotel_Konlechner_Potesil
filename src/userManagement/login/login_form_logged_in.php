@@ -108,15 +108,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </button>
         </div>
     </form>
-
+  
+    <div class="mt-1 mb-3">
+        <button class="btn btn-primary" onclick="document.location='../../content/reservation/myReservations.php'">Meine Reservierungen</button> 
+    </div>
+  
     <div class="mb-3">
         <label for="username" class="form-label">Benutzername</label>
         <input type="text" class="form-control" name="username" id="username" disabled
                value=<?php echo $currentUser->getUsername() ?>>
         <div id="username" class="form-text">Ihr Benutzername kann nicht geändert werden!</div>
     </div>
-
-
+  
     <!-- change password -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
         Passwort ändern
