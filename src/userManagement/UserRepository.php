@@ -167,5 +167,44 @@ class UserRepository
         return $count;
     }
 
+    public function getAllUsers()
+    {
+        require '../../database/dbaccess.php';
+        $sqlInsert = "SELECT * FROM users";
+
+        $statement = $connection->prepare($sqlInsert);
+
+        $statement->execute();
+        $allUsers = $this->fetchAllAndBindResult($statement);
+
+
+        $statement->close();
+        $connection->close();
+        return $allUsers;
+    }
+
+    private function fetchAllAndBindResult(mixed $statement)
+    {
+        $statement->execute();
+        $statement->bind_result($id, $uName, $password, $sex, $fname, $lname, $email, $isAdmin);
+
+        $allUsers = [];
+        while($statement->fetch()) {
+            $fetched = User::of( # use constructor-like method to create new instance of user
+                $id,
+                $uName,
+                $password,
+                $sex,
+                $fname,
+                $lname,
+                $email,
+                $isAdmin
+            );
+            $allUsers[] = $fetched;
+        };
+
+        return $allUsers;
+    }
+
 
 }

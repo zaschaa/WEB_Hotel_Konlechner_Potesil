@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         if ($isValidPassword && $enteredOldPasswordIsValid) {
             // update
-            $ums ->updateUserPassword($currentUser->getUsername(), $enteredPassword2);
+            $ums->updateUserPassword($currentUser->getUsername(), $enteredPassword2);
             // show successful modal
             echo "<script type='text/javascript'>
                     $(document).ready(function(){
@@ -196,7 +196,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                 } ?></div>
                         </div>
 
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
@@ -217,6 +216,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="passwordChangeSuccessful">Passwortänderung erfolgreich!</h1>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
                 </div>
             </div>
         </div>

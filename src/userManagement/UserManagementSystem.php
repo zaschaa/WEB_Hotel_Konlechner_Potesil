@@ -47,6 +47,11 @@ class UserManagementSystem
         return $this->repository->getUserByUsername($usernameToCheck);
     }
 
+    public function getAllUsers()
+    {
+        return$this->repository->getAllUsers();
+    }
+
     public function isRegisteredUser($usernameToCheck): bool
     {
         $count = $this->repository->countUsersByUsername($usernameToCheck);

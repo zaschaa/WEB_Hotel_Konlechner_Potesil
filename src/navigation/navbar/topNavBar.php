@@ -39,6 +39,9 @@
                 <li class="nav-item px-2">
                     <a href="../../content/information/coupons.php">Gutscheine</a>
                 </li>
+                <li class="nav-item px-2">
+                    <a href="../../userManagement/admin_usermanagement/admin_usermanagement.php">Benutzer verwalten</a>
+                </li>
             </ul>
             <div class="nav-item d-flex justify-content-end bg-info-subtle bg-opacity-25 rounded">
                 <a class="btn btn-outline-info" id="loginLink" href="../../userManagement/login/login_form.php">
