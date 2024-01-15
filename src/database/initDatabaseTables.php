@@ -28,6 +28,7 @@ $tableSqlList = [
         `lastname` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
         `email` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
         `is_admin` TINYINT(1) NOT NULL DEFAULT '0',
+        `is_user_inactive` TINYINT(1) NOT NULL DEFAULT '0',
         PRIMARY KEY (`id`) USING BTREE,
         UNIQUE INDEX `idx_username` (`username`) USING BTREE
     )
@@ -118,6 +119,12 @@ $tableSqlList = [
     )
     COLLATE='utf8mb4_general_ci'
     ENGINE=InnoDB;"
+    ,
+    "INSERT INTO `reservations` (`id`, `user_id`, `room_id`, `start_date`, `end_date`, `number_of_persons`, `has_breakfast`, `number_of_parking_lots`, `number_of_pets`, `comment`, `state`, `created_at`) 
+    VALUES 
+    (1, 1, 39, '2024-01-20', '2024-01-27', 5, 1, 1, 0, NULL, 'confirmed', '2024-01-13 20:25:23'),
+    (2, 1, 43, '2024-01-14', '2024-01-19', 5, 1, 1, 0, 'Sehr geehrte Damen und Herren! Ich bitte täglich um Punkt 19 Uhr eine Flasche Single Malt Scotch Whiskey auf mein Zimmer bringen zu lassen. Herzlichen Dank! Mit besten Grüßen, Prof. Dr. Max Meier', 'cancelled', '2024-01-14 16:47:57'),
+    (3, 1, 6, '2024-01-28', '2024-02-03', 3, 1, 0, 0, '', 'new', '2024-01-14 16:55:51');"
     ,
     "CREATE TABLE `charged_options` (
         `id` INT(11) NOT NULL AUTO_INCREMENT,

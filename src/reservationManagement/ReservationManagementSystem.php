@@ -247,18 +247,9 @@ class ReservationManagementSystem
                 echo "<tr>";
                     echo "<td class=\"resOVth\"></td>";
                     echo "<td class=\"resOVth\">$createdAt</td>";  
-                    switch ($state) {
-                        case "new":
-                            $state = "neu (=unbestätigt)";
-                        break;
-                        case "confirmed":
-                            $state = "bestätigt";
-                        break;
-                        case "cancelled":
-                            $state = "storniert";
-                        break;
-                        default:                    
-                    }
+
+                    $state = $this->getResStateGerman($state);
+                    
                     echo "<td class=\"resOVth\">$state</td>";                                   
                 echo "</tr>";
             echo "</tbody>";
@@ -270,7 +261,134 @@ class ReservationManagementSystem
         $connection->close();
     }
 
+    public function printAllReservations()
+    {
+        require '../../database/dbaccess.php';            
+        
+        $sqlSelect = 
+        "SELECT RE.id, U.firstname, U.lastname, RE.start_date, RE.end_date, RE.number_of_persons, RT.room_type_name, RO.room_number, RE.number_of_parking_lots, RE.number_of_pets, 
+                RE.comment, RE.state, RE.created_at
+         FROM reservations AS RE
+         LEFT JOIN rooms AS RO
+         ON RE.room_id = RO.id
+         LEFT JOIN room_types AS RT
+         ON RO.room_type = RT.id
+         LEFT JOIN users AS U
+         ON RE.user_id = U.id;";        
+       
+        $result = $connection->query($sqlSelect);             
+            
+            if ($result->num_rows > 0) {
 
-  
+                echo "<table class=\"table mb-2\">";    
+                    # print header           
+                    echo "<tr>"; 
+                        echo "<th class=\"resOVth\">Reservierungs-Nr.</th>";
+                        echo "<th class=\"resOVth\">Erstelldatum</th>";
+                        echo "<th class=\"resOVth\">Status</th>"; 
+                        echo "<th class=\"resOVth\"></th>";               
+                    echo "</tr>";  
+
+                    // output data of each row
+                    while($row = $result->fetch_assoc()) {
+
+                        $id = $row["id"];                        
+                        $createdAt = $row["created_at"];
+                        $state = $this->getResStateGerman($row["state"]);
+                        
+                        echo "<tr>";
+                            echo "<td class=\"resOVth\">$id</td>";
+                            echo "<td class=\"resOVth\">$createdAt</td>";
+                            echo "<td class=\"resOVth\">$state</td>";                            
+                            echo "<td class=\"resOVth\"><form method=\"post\" action=\"./../admin_reservationManagement/admin_reservation_management.php\"><button class=\"btn btn-primary\" type=\"submit\" name=\"getResDetailView\" id=\"getResDetailView\" value=\"$id\">Details</button></form></td>";                                   
+                        echo "</tr>";
+                        
+                    }
+                echo "</table>";
+
+              } else {
+                echo "Keine Reservierungen vorhanden!";
+              }            
+        
+        $connection->close();
+    }
+
+    public function getResStateGerman($resState)
+    {
+        switch ($resState) {
+            case "new":
+                $stateGerman = "neu (=unbestätigt)";
+            break;
+            case "confirmed":
+                $stateGerman = "bestätigt";
+            break;
+            case "cancelled":
+                $stateGerman = "storniert";
+            break;
+            default: $stateGerman ="-";
+        }
+
+        return $stateGerman;
+    }
+
+    public function printReservationOverviewById($resId)
+    {
+        require '../../database/dbaccess.php';            
+        
+        $sqlSelect = 
+        "SELECT RE.id, RE.user_id, RE.room_id, U.firstname, U.lastname, RE.start_date, RE.end_date, RE.number_of_persons, RE.has_breakfast, RT.room_type_name, RO.room_number, RE.number_of_parking_lots, RE.number_of_pets, 
+                RE.comment, RE.state, RE.created_at
+         FROM reservations AS RE
+         LEFT JOIN rooms AS RO
+         ON RE.room_id = RO.id
+         LEFT JOIN room_types AS RT
+         ON RO.room_type = RT.id
+         LEFT JOIN users AS U
+         ON RE.user_id = U.id
+         WHERE RE.id = ?;"; # ? --> placeholder in prepared statement !!! Avoid SQL injection !!!               
+       
+        $statement = $connection->prepare($sqlSelect);
+        $statement->bind_param("i", $resId);
+        $statement->execute();
+
+        $statement->bind_result($id, $userId, $roomId, $firstName, $lastName, $startDate, $endDate, $numOfPers, $hasBreakfast, $roomTypeName, $roomNumber, $numOfParkingLots, $numOfPets, $comment, $state, $createdAt);                  
+
+        $statement->fetch();    
+        $statement->close();        
+        $connection->close();    
+        
+        $res = Reservation::of( # use constructor-like method to create new instance of Reservation
+            $id,    
+            $userId, 
+            $roomId, 
+            date_create($startDate), 
+            date_create($endDate), 
+            $numOfPers,
+            $hasBreakfast,
+            $numOfParkingLots, 
+            $numOfPets, 
+            $comment, 
+            $state, 
+            $createdAt            
+        );
+
+        include '../admin_reservationManagement/reservation_detail_view.php';
+    }
+
+    public function updateResState($resId, $state)
+    {
+        require '../../database/dbaccess.php';            
+        
+        $sqlUpdate = 
+        "UPDATE reservations
+        SET state = ?
+        WHERE id = ?;";
+        
+        $statement = $connection->prepare($sqlUpdate);
+        $statement->bind_param("si", $state, $resId);
+        $statement->execute();            
+        $statement->close();        
+        $connection->close();
+    }
 }
 

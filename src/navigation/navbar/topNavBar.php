@@ -1,9 +1,10 @@
+
 <nav class="navbar fixed-top navbar-expand-lg navBarColor bg-gradient">
     <div class="container justify-content-left" id="nav-mother-container">
         <div class="navbar d-flex flex-column navbar-brand">
             <a class="p-1 mb-2" id="homeLink" href="../../index.php">
                 <div>
-                    <img src="../../images/fiveGoldenStarsTransparentBG.png" alt="" >
+                    <img src="../../images/fiveGoldenStarsTransparentBG.png" alt="">
                 </div>
                 <div>
                     The Great Old One
@@ -36,9 +37,21 @@
                 <li class="nav-item px-2">
                     <a href="../../content/information/roomReservation.php">Reservierung</a>
                 </li>
-                <li class="nav-item px-2">
+                <!--<li class="nav-item px-2">
                     <a href="../../content/information/coupons.php">Gutscheine</a>
-                </li>
+                </li>-->
+                <?php
+                    if (isset($_SESSION["currentUser"])
+                        && isset($_SESSION["currentUserIsAdminUser"])
+                        && $_SESSION["currentUserIsAdminUser"]):
+                ?>
+                        <li class="nav-item px-2">
+                            <a href="../../userManagement/admin_usermanagement/admin_usermanagement.php">Benutzer verwalten</a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a href="../../reservationManagement/admin_reservationManagement/admin_reservation_management.php">Reservierungen verwalten</a>
+                        </li>
+                <?php endif; ?>
             </ul>
             <div class="nav-item d-flex justify-content-end bg-info-subtle bg-opacity-25 rounded">
                 <a class="btn btn-outline-info" id="loginLink" href="../../userManagement/login/login_form.php">

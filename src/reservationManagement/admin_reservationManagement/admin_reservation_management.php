@@ -15,7 +15,7 @@
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>
 
-    <title>Meine Reservierungen</title>
+    <title>Reservierungen verwalten</title>
 
     <link rel="stylesheet" href="../../styles.css"/>
 </head>
@@ -29,20 +29,32 @@
 <main>
     <div class="container justify-content-left">
 
-        <h1>Meine Reservierungen</h1>
+        <h1>Reservierungs-Verwaltung</h1>
 
         <?php     
             require_once('../../reservationManagement/ReservationManagementSystem.php');   
 
-            if(isset($_SESSION["currentUser"])) {
-                $rms = new ReservationManagementSystem();  
-                
-                $rms->printUsersReservations($_SESSION["currentUser"]);
+            $rms = new ReservationManagementSystem();  
+
+            if((isset($_POST["getResDetailView"]) || isset($_POST["cancelRes"]) || isset($_POST["confirmRes"]) || isset($_POST["resetCancel"])) && !isset($_POST["goback2ResList"])) {
+                echo "<h2>Detailansicht</h2>";
+                if(isset($_POST["getResDetailView"])) {
+                    $rms->printReservationOverviewById($_POST["getResDetailView"]);
+                } elseif (isset($_POST["cancelRes"])) {
+                    $rms->updateResState($_POST["cancelRes"], "cancelled"); 
+                    $rms->printReservationOverviewById($_POST["cancelRes"]);
+                } elseif (isset($_POST["confirmRes"])) {
+                    $rms->updateResState($_POST["confirmRes"], "confirmed");
+                    $rms->printReservationOverviewById($_POST["confirmRes"]);
+                } elseif (isset($_POST["resetCancel"])) {
+                    $rms->updateResState($_POST["resetCancel"], "new");
+                    $rms->printReservationOverviewById($_POST["resetCancel"]);
+                }
             } else {
-                echo "<p>Bitte loggen Sie sich ein, um Ihre Reservierungen einsehen zu können!</p>";
+                $rms->printAllReservations();
             }
         ?>
-     
+
     </div>
 
 </main>
