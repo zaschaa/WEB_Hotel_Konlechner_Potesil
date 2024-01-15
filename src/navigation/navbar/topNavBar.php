@@ -35,7 +35,7 @@
                     <a href="../../content/information/rooms.php">Zimmer</a>
                 </li>
                 <li class="nav-item px-2">
-                    <a href="../../content/information/roomReservation.php">Reservierung</a>
+                    <a href="../../content/reservation/roomReservation.php">Reservierung</a>
                 </li>
                 <!--<li class="nav-item px-2">
                     <a href="../../content/information/coupons.php">Gutscheine</a>

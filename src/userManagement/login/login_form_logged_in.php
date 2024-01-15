@@ -120,7 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </div>
   
     <!-- change password -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
         Passwort ändern
     </button>
 
@@ -283,7 +283,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 } ?></div>
         </div>
 
-        <button class="btn btn-success" type="submit" name="change" id="change">Ändern</button>
+        <button class="btn btn-success mb-3" type="submit" name="change" id="change">Ändern</button>
     </form>
 
 </div>

@@ -44,8 +44,8 @@
             }
         }
 
-        if (isset($_POST["goon2"])) {
-
+        if ((isset($_POST["goon2"]) || isset($_POST["goback"])) && $_SESSION["availableRoomTypes"] != null) {
+            
             $roomType = htmlspecialchars($_POST["roomType"]);
             $_SESSION["roomType"] = $roomType;
             
