@@ -95,11 +95,14 @@ class ReservationManagementSystem
         WHERE capacity >= ?
         AND NOT R.id IN 
         (	SELECT room_id FROM reservations 
-            WHERE (start_date <= ? AND end_date > ?)
-                    OR
-                    (start_date <= ? AND end_date > ?)
-                    OR
-                    (start_date >= ? AND end_date <= ?)
+            WHERE (NOT state = 'cancelled') AND
+                (
+                  (start_date <= ? AND end_date > ?)
+                   OR
+                  (start_date <= ? AND end_date > ?)
+                   OR
+                  (start_date >= ? AND end_date <= ?)
+                )
         );"; # ? --> placeholder in prepared statement !!! Avoid SQL injection !!!        
 
         $statement = $connection->prepare($sqlSelect);
