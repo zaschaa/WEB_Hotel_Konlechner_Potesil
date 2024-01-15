@@ -54,12 +54,12 @@ $allUsers = $ums->getAllUsers();
             <h1>User Management</h1>
             <h2>Hier können User-Daten erfasst und aktualisiert werden.</h2>
 
-            <ul>
+            <ul class="userDataList">
                 <?php
                 foreach ($allUsers as $user) {
                     ?>
 
-                    <li>
+                    <li class="userListItem">
                         <div class="userDataContainer">
 
                             <h5>
