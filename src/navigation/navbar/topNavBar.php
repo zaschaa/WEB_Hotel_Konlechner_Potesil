@@ -37,20 +37,21 @@
                 <li class="nav-item px-2">
                     <a href="../../content/information/roomReservation.php">Reservierung</a>
                 </li>
-                <li class="nav-item px-2">
+                <!--<li class="nav-item px-2">
                     <a href="../../content/information/coupons.php">Gutscheine</a>
-                </li>
+                </li>-->
                 <?php
-                if (isset($_SESSION["currentUser"])
-                    && isset($_SESSION["currentUserIsAdminUser"])
-                    && $_SESSION["currentUserIsAdminUser"]) {
+                    if (isset($_SESSION["currentUser"])
+                        && isset($_SESSION["currentUserIsAdminUser"])
+                        && $_SESSION["currentUserIsAdminUser"]):
                 ?>
-                <li class="nav-item px-2">
-                    <a href="../../userManagement/admin_usermanagement/admin_usermanagement.php">Benutzer verwalten</a>
-                </li>
-                <?php
-                }
-                ?>
+                        <li class="nav-item px-2">
+                            <a href="../../userManagement/admin_usermanagement/admin_usermanagement.php">Benutzer verwalten</a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a href="../../reservationManagement/admin_reservationManagement/admin_reservation_management.php">Reservierungen verwalten</a>
+                        </li>
+                <?php endif; ?>
             </ul>
             <div class="nav-item d-flex justify-content-end bg-info-subtle bg-opacity-25 rounded">
                 <a class="btn btn-outline-info" id="loginLink" href="../../userManagement/login/login_form.php">
