@@ -115,8 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   
     <div class="mb-3">
         <label for="username" class="form-label">Benutzername</label>
-        <input type="text" class="form-control" name="username" id="username" disabled
-               value=<?php echo $currentUser->getUsername(); ?>>
+        <input type="text" class="form-control" name="username" id="username" disabled value=<?php echo $currentUser->getUsername(); ?>>
         <div id="username" class="form-text">Ihr Benutzername kann nicht geändert werden!</div>
     </div>
   
