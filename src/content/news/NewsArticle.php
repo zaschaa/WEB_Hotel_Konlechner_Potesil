@@ -1,6 +1,5 @@
 <?php
 
-#namespace content\news;
 class NewsArticle
 {
     private $imagePath;
@@ -18,9 +17,7 @@ class NewsArticle
      * @param $description
      */
     public function __construct($id, $user_id, $headline, $description, $imagePath, $thumbnailPath, $created_at)
-    {
-        #$id = isset($_SESSION["news"]) ? sizeof($_SESSION["news"]) : 0;
-
+    {       
         $this->id = $id;
         $this->userId = $user_id;
         $this->headline = $headline;
@@ -38,7 +35,6 @@ class NewsArticle
     {
         return $this->imagePath;
     }
-
 
     /**
      * @return string

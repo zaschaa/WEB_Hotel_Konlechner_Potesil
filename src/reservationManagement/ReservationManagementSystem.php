@@ -273,7 +273,8 @@ class ReservationManagementSystem
          LEFT JOIN room_types AS RT
          ON RO.room_type = RT.id
          LEFT JOIN users AS U
-         ON RE.user_id = U.id;";        
+         ON RE.user_id = U.id
+         ORDER BY RE.created_at DESC;";        
        
         $result = $connection->query($sqlSelect);             
             
@@ -316,7 +317,7 @@ class ReservationManagementSystem
     {
         switch ($resState) {
             case "new":
-                $stateGerman = "neu (=unbestätigt)";
+                $stateGerman = "neu";
             break;
             case "confirmed":
                 $stateGerman = "bestätigt";

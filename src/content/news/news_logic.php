@@ -16,6 +16,6 @@ function getAndFormatAllNewsArticles() {
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {   
     if(isset($_POST["delete"])){
-        $nms->deleteArticle($_POST["delete"]);
+        $nms->deleteNewsArticle($_POST["delete"]);
     }
 }

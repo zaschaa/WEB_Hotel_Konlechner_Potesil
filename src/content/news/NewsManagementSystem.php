@@ -92,7 +92,7 @@ class NewsManagementSystem
         return $result;       
     }
 
-    public function deleteArticle($id)
+    public function deleteNewsArticle($id)
     {        
         require_once 'NewsArticle.php';
         require '../../database/dbaccess.php';     
