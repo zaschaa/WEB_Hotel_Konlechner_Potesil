@@ -1,8 +1,5 @@
 <?php
-include 'file_upload_logic.php';
-
-// if(isset($_SESSION["news"])) : var_dump($_SESSION["news"]); endif;
-// phpinfo();
+    include 'file_upload_logic.php';
 ?>
 
 <h3>Neuen Newsartikel anlegen</h3>
@@ -22,7 +19,4 @@ include 'file_upload_logic.php';
 </form>
 
 <ul>
-    <?php
-    // listAllFilesInDirectory()
-    ?>
-</ul>
+ 

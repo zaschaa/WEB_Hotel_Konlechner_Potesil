@@ -175,8 +175,7 @@ class ReservationManagementSystem
         $statement = $connection->prepare($sqlInsert);
         $statement->bind_param("iissiiiis", $userId, $roomId, $startDate, $endDate, $numOfPers, $hasBreakfast, $numOfParkingLots, $numOfPets, $comment);
         $result = $statement->execute();
-        #$statement->bind_result($roomId);
-        #$result = $statement->fetch();       
+           
         $statement->close();        
         $connection->close();
 

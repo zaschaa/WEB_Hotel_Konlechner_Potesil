@@ -40,6 +40,26 @@ $tableSqlList = [
     (1, 'maxim', '$2y$10$5gbnNwXMXJgVNjgB8M14beW.QfGgiMl7/8MvrNJePhuA.WEdPwozS', 'Herr', 'Max', 'Meier', 'max@meier.at', 0),
     (2, 'admin', '$hashedAdminPW', 'Herr', 'Admin', 'LeBoss', 'chef.admin@mailmail.com', 1);"
     ,
+    "CREATE TABLE `news_articles` (
+        `id` INT(11) NOT NULL AUTO_INCREMENT,
+        `user_id` INT(11) NOT NULL,
+        `headline` VARCHAR(80) NOT NULL COLLATE 'utf8mb4_general_ci',
+        `description` TEXT NOT NULL COLLATE 'utf8mb4_general_ci',
+        `image_path` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+        `thumbnail_path` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+        `created_at` DATETIME NOT NULL DEFAULT current_timestamp(),
+        PRIMARY KEY (`id`) USING BTREE,
+        INDEX `FK_news_user_id` (`user_id`) USING BTREE,
+        CONSTRAINT `FK_news_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
+    )
+    COLLATE='utf8mb4_general_ci'
+    ENGINE=InnoDB;"
+    ,
+    "INSERT INTO `news_articles` (`id`, `user_id`, `headline`, `description`, `image_path`, `thumbnail_path`, `created_at`)
+    VALUES 
+        (1, 2, 'Frohe Weihnachten!', 'Wir wünschen schöne Feiertage!', 'uploads/christmas_tree.jpg', 'thumbnails/thumbnail_christmas_tree.jpg', '2023-12-21 23:19:52'),
+        (2, 2, 'Die Ballsaison ist eröffnet!', 'Die Wiener Bälle laden zum Tanz ein!', 'uploads/taenzer.jpg', 'thumbnails/thumbnail_taenzer.jpg', '2024-01-09 00:17:01');"
+    ,
     "CREATE TABLE `bed_types` (
         `id` INT(11) NOT NULL,
         `bed_type_name` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',

@@ -2,7 +2,7 @@
 global $uploadPath;
 
 require_once "./NewsArticle.php";
-use content\news\NewsArticle as NewsArticle;
+use NewsArticle as NewsArticle; 
 
 $uploadPath = 'uploads/';
 $thumbnailPath = 'thumbnails/';
@@ -18,15 +18,14 @@ if (!file_exists($thumbnailPath)) {
     mkdir($thumbnailPath);
 }
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    var_dump($_POST);
+if ($_SERVER["REQUEST_METHOD"] === "POST") {   
 
     if (isset($_FILES["file"]["name"])) {
         echo "<script> console.log('File uploaded...' )</script>";
         $fileName = $_FILES["file"]["name"];
         $fileDirection = $uploadPath . $fileName;
         $thumbnailDirection = $thumbnailPath . 'thumbnail_' . $fileName;
-
+        
         if (file_exists($fileDirection)) {
             echo "<script> console.log('Fuck off Jimmy...' )</script>";
         } else {
@@ -40,11 +39,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 function createNewsArticle($fileDirection, $thumbnailDirection)
 {
+    require_once "./NewsManagementSystem.php";
+    require_once "./NewsArticle.php";
+
+    $nms = new NewsManagementSystem();
+
     $headline = htmlspecialchars($_POST["headline"]);
     $description = htmlspecialchars($_POST["description"]);
 
-    $newsArticle = new NewsArticle($fileDirection, $thumbnailDirection, $headline, $description);
-    $_SESSION["news"][] = $newsArticle;
+    $newsArticle = new NewsArticle(null, $_SESSION["currentUser"]->getUserId(), $headline, $description, $fileDirection, $thumbnailDirection, date("Y-m-d H:i:s", date_timestamp_get(date_create())));
+    
+    $nms->saveNewsArticleToDatabase($newsArticle);
 }
 
 function listAllFilesInDirectory()

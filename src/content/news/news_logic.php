@@ -3,17 +3,19 @@ require_once "./NewsArticle.php";
 require_once "./NewsManagementSystem.php";
 
 $nms = new NewsManagementSystem();
-if (!isset($_SESSION["news"])) {
-    $_SESSION["news"] = [];
-}
-
 
 function getAndFormatAllNewsArticles() {
     global $nms;
     $newsArticleList = $nms->getAllNews();
     if (empty($newsArticleList)) {
-        echo "Sie sind am neuesten Stand, denn es gibt keinerlei Neuigkeiten!";
+        echo "<p class=\"mb-3\">Sie sind am neuesten Stand, denn es gibt keinerlei Neuigkeiten!</p>";
     }
 
     return $newsArticleList;
+}
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {   
+    if(isset($_POST["delete"])){
+        $nms->deleteArticle($_POST["delete"]);
+    }
 }

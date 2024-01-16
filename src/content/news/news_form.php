@@ -22,7 +22,7 @@
 <header>
     <?php
     require_once "../../userManagement/User.php";
-    require_once "./NewsArticle.php";
+    require "./NewsArticle.php";
     include '../../navigation/navbar/topNavBar.php';
     include "news_logic.php";
     ?>
@@ -31,15 +31,15 @@
 <main>
     <div class="container justify-content-left">
         <h1>Neuigkeiten</h1>
-        <h2>Hier erfahren Sie den neuesten heißesten Scheiß!</h2>
+        
+        <h2>Hier erhalten Sie aktuelle Informationen!</h2>
 
-        <div class="news-container">
-            <div>
-                <?php
+        <div class="news-container mb-3">
+            <div class="border-bottom border-2 mb-3">
+                <?php 
                 if (isset($_SESSION["currentUser"]) && $_SESSION["currentUser"]->isAdmin()) {
-                    ?>
+                ?>
                     <p class="d-inline-flex gap-1">
-
                         <a class="btn btn-primary" data-bs-toggle="collapse" href="#createArticleField" role="button"
                            aria-expanded="false" aria-controls="collapseExample">
                             Neuen News-Artikel anlegen
@@ -52,45 +52,53 @@
                             ?>
                         </div>
                     </div>
-                    <?php
+                <?php
                 }
                 ?>
             </div>
-
-            <div>
-                <?php
+            
+            <?php
                 $formattedArticles = getAndFormatAllNewsArticles();
-                ?>
-                <ul id="newsList">
-                    <?php
-                    foreach ($formattedArticles as $article) {
-                        $thumbnail = $article->getThumbnailPath();
-                        $headline = $article->getHeadline();
-                        $description = $article->getDescription();
-                        ?>
-                        <li class="newsListItem">
-                            <div class="article">
-                                <?php
-                                echo "<img src='$thumbnail' alt='Thumbnail'>";
-                                ?>
-                                <div class="newsBody">
-                                    <?php
-                                    echo "<h2>$headline</h2>";
-                                    echo "<p>$description</p>";
-                                    ?>
-                                </div>
-                                <form method="POST" enctype="multipart/form-data" class="flex-column">
-                                    <button class="btn btn-danger" type="submit" id="submit" value="delete">
-                                        Löschen
-                                    </button>
-                                </form>
-                            </div>
-                        </li>
-                        <?php
-                    }
-                    ?>
-                </ul>
-            </div>
+            ?>
+
+            <?php
+            foreach ($formattedArticles as $article) { 
+                $id = $article->getId();
+                $thumbnail = $article->getThumbnailPath();
+                $headline = $article->getHeadline();
+                $description = $article->getDescription();
+                $createdAt = date("d.m.Y H:i", date_timestamp_get(date_create($article->getCreatedAt())));
+            ?>                                        
+                <div class="d-flex flex-column border-bottom border-2 mb-3">
+                    
+                    <div>
+                        <?php echo "<p>$createdAt</p>"; ?>                   
+                    </div>
+                    <div>
+                        <?php echo "<h2>$headline</h2>"; ?>                    
+                    </div>
+                    <div class="mb-3">                            
+                        <?php echo "<img src='$thumbnail' alt='Thumbnail'>"; ?>                                                    
+                    </div>                      
+                    <div class="mb-3">                                                         
+                        <?php echo "<p>$description</p>"; ?>                          
+                    </div>  
+                    <div class="mb-3">
+                        <?php if(isset($_SESSION["currentUser"]) && $_SESSION["currentUser"]->isAdmin()): ?>
+                            <form method="POST">
+                                <button class="btn btn-danger" type="submit" id="delete" name="delete" value="<?php echo $id; ?>">
+                                    Löschen
+                                </button>
+                            </form>
+                        <?php endif; ?>
+                    </div> 
+                        
+                </div>                            
+                
+            <?php 
+            } 
+            ?>           
+
         </div>
     </div>
 </main>

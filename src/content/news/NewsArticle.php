@@ -1,6 +1,6 @@
 <?php
 
-namespace content\news;
+#namespace content\news;
 class NewsArticle
 {
     private $imagePath;
@@ -8,6 +8,8 @@ class NewsArticle
     private $headline;
     private $description;
     private $id;
+    private $createdAt;
+    private $userId;
 
     /**
      * @param $imagePath
@@ -15,15 +17,17 @@ class NewsArticle
      * @param $headline
      * @param $description
      */
-    public function __construct($imagePath, $thumbnailPath, $headline, $description)
+    public function __construct($id, $user_id, $headline, $description, $imagePath, $thumbnailPath, $created_at)
     {
-        $id = isset($_SESSION["news"]) ? sizeof($_SESSION["news"]) : 0;
+        #$id = isset($_SESSION["news"]) ? sizeof($_SESSION["news"]) : 0;
 
-        $this->imagePath = $imagePath;
-        $this->thumbnailPath = $thumbnailPath;
+        $this->id = $id;
+        $this->userId = $user_id;
         $this->headline = $headline;
         $this->description = $description;
-        $this->id = $id;
+        $this->imagePath = $imagePath;
+        $this->thumbnailPath = $thumbnailPath;
+        $this->createdAt = $created_at;        
     }
 
 
@@ -67,4 +71,29 @@ class NewsArticle
     {
         return $this->id;
     }
+
+    /**
+     * @return Date
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCreatedAtDateTimeString()
+    {        
+        return date("d.m.Y H:s", date_timestamp_get($this->createdAt));
+    }
+
+    /**
+     * @return int
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
 }
